@@ -1,0 +1,21 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>net9.0</TargetFramework>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <Nullable>enable</Nullable>
+    </PropertyGroup>
+
+    <ItemGroup>
+      <Folder Include="Helpers\" />
+      <Folder Include="Utilities\" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\HealthCare.Application\HealthCare.Application.csproj" />
+      <ProjectReference Include="..\HealthCare.Domain\HealthCare.Domain.csproj" />
+      <ProjectReference Include="..\HealthCare.Infrastructure\HealthCare.Infrastructure.csproj" />
+      <ProjectReference Include="..\HeathCare.Api\HeathCare.Api.csproj" />
+    </ItemGroup>
+
+</Project>
