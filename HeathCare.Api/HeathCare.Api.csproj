@@ -1,10 +1,11 @@
-<Project Sdk="Microsoft.NET.Sdk.Web">
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
 
     <PropertyGroup>
         <TargetFramework>net9.0</TargetFramework>
         <Nullable>enable</Nullable>
         <ImplicitUsings>enable</ImplicitUsings>
-    </PropertyGroup>
+      <UserSecretsId>b48aa8e6-22cc-46b2-877d-c30a43945bec</UserSecretsId>
+  </PropertyGroup>
 
     <ItemGroup>
         <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="9.0.8" />
@@ -17,6 +18,7 @@
     <ItemGroup>
       <ProjectReference Include="..\HealthCare.Application\HealthCare.Application.csproj" />
       <ProjectReference Include="..\HealthCare.Infrastructure\HealthCare.Infrastructure.csproj" />
+      <ProjectReference Include="..\HealthCare.Shared\HealthCare.Shared.csproj" />
     </ItemGroup>
 
 </Project>

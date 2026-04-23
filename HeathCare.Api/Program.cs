@@ -1,8 +1,15 @@
+using HealthCare.Infrastructure.Persistence.Context;
+using HealthCare.Shared.Constants;
+using Microsoft.EntityFrameworkCore;
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
 builder.Services.AddOpenApi();
+
+builder.Services.AddDbContext<HeathCareDbContext>(options =>
+    options.UseSqlServer(builder.Configuration[DatabaseConstants.DefaultConnection]));
+
 
 var app = builder.Build();
 

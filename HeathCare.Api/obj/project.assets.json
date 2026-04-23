@@ -1662,6 +1662,21 @@
         "runtime": {
           "bin/placeholder/HealthCare.Infrastructure.dll": {}
         }
+      },
+      "HealthCare.Shared/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v9.0",
+        "dependencies": {
+          "HealthCare.Application": "1.0.0",
+          "HealthCare.Domain": "1.0.0",
+          "HealthCare.Infrastructure": "1.0.0"
+        },
+        "compile": {
+          "bin/placeholder/HealthCare.Shared.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/HealthCare.Shared.dll": {}
+        }
       }
     }
   },
@@ -4786,12 +4801,18 @@
       "type": "project",
       "path": "../HealthCare.Infrastructure/HealthCare.Infrastructure.csproj",
       "msbuildProject": "../HealthCare.Infrastructure/HealthCare.Infrastructure.csproj"
+    },
+    "HealthCare.Shared/1.0.0": {
+      "type": "project",
+      "path": "../HealthCare.Shared/HealthCare.Shared.csproj",
+      "msbuildProject": "../HealthCare.Shared/HealthCare.Shared.csproj"
     }
   },
   "projectFileDependencyGroups": {
     "net9.0": [
       "HealthCare.Application >= 1.0.0",
       "HealthCare.Infrastructure >= 1.0.0",
+      "HealthCare.Shared >= 1.0.0",
       "Microsoft.AspNetCore.OpenApi >= 9.0.8",
       "Microsoft.EntityFrameworkCore.Design >= 9.0.4"
     ]
@@ -4827,6 +4848,9 @@
             },
             "/Users/ingcampoverde/RiderProjects/HeathCare/HealthCare.Infrastructure/HealthCare.Infrastructure.csproj": {
               "projectPath": "/Users/ingcampoverde/RiderProjects/HeathCare/HealthCare.Infrastructure/HealthCare.Infrastructure.csproj"
+            },
+            "/Users/ingcampoverde/RiderProjects/HeathCare/HealthCare.Shared/HealthCare.Shared.csproj": {
+              "projectPath": "/Users/ingcampoverde/RiderProjects/HeathCare/HealthCare.Shared/HealthCare.Shared.csproj"
             }
           }
         }

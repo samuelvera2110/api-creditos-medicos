@@ -47,25 +47,6 @@
           }
         }
       },
-      "Microsoft.AspNetCore.OpenApi/9.0.8": {
-        "type": "package",
-        "dependencies": {
-          "Microsoft.OpenApi": "1.6.17"
-        },
-        "compile": {
-          "lib/net9.0/Microsoft.AspNetCore.OpenApi.dll": {
-            "related": ".xml"
-          }
-        },
-        "runtime": {
-          "lib/net9.0/Microsoft.AspNetCore.OpenApi.dll": {
-            "related": ".xml"
-          }
-        },
-        "frameworkReferences": [
-          "Microsoft.AspNetCore.App"
-        ]
-      },
       "Microsoft.Bcl.AsyncInterfaces/1.1.1": {
         "type": "package",
         "compile": {
@@ -546,19 +527,6 @@
         },
         "runtime": {
           "lib/netstandard1.0/_._": {}
-        }
-      },
-      "Microsoft.OpenApi/1.6.17": {
-        "type": "package",
-        "compile": {
-          "lib/netstandard2.0/Microsoft.OpenApi.dll": {
-            "related": ".pdb;.xml"
-          }
-        },
-        "runtime": {
-          "lib/netstandard2.0/Microsoft.OpenApi.dll": {
-            "related": ".pdb;.xml"
-          }
         }
       },
       "Microsoft.SqlServer.Server/1.0.0": {
@@ -1058,24 +1026,6 @@
         "runtime": {
           "bin/placeholder/HealthCare.Infrastructure.dll": {}
         }
-      },
-      "HeathCare.Api/1.0.0": {
-        "type": "project",
-        "framework": ".NETCoreApp,Version=v9.0",
-        "dependencies": {
-          "HealthCare.Application": "1.0.0",
-          "HealthCare.Infrastructure": "1.0.0",
-          "Microsoft.AspNetCore.OpenApi": "9.0.8"
-        },
-        "compile": {
-          "bin/placeholder/HeathCare.Api.dll": {}
-        },
-        "runtime": {
-          "bin/placeholder/HeathCare.Api.dll": {}
-        },
-        "frameworkReferences": [
-          "Microsoft.AspNetCore.App"
-        ]
       }
     }
   },
@@ -1116,22 +1066,6 @@
         "azureicon.png",
         "lib/netstandard2.0/Azure.Identity.dll",
         "lib/netstandard2.0/Azure.Identity.xml"
-      ]
-    },
-    "Microsoft.AspNetCore.OpenApi/9.0.8": {
-      "sha512": "BwF9sQCKmvu93C/pmKxJjPhF5fFB23MEcgTsGL+7W3wKLYawS4lyFSL5/qh00IJzuADLf+1SmvxMaphbyZYqQQ==",
-      "type": "package",
-      "path": "microsoft.aspnetcore.openapi/9.0.8",
-      "files": [
-        ".nupkg.metadata",
-        ".signature.p7s",
-        "Icon.png",
-        "PACKAGE.md",
-        "THIRD-PARTY-NOTICES.TXT",
-        "lib/net9.0/Microsoft.AspNetCore.OpenApi.dll",
-        "lib/net9.0/Microsoft.AspNetCore.OpenApi.xml",
-        "microsoft.aspnetcore.openapi.9.0.8.nupkg.sha512",
-        "microsoft.aspnetcore.openapi.nuspec"
       ]
     },
     "Microsoft.Bcl.AsyncInterfaces/1.1.1": {
@@ -1900,21 +1834,6 @@
         "microsoft.netcore.targets.1.1.0.nupkg.sha512",
         "microsoft.netcore.targets.nuspec",
         "runtime.json"
-      ]
-    },
-    "Microsoft.OpenApi/1.6.17": {
-      "sha512": "Le+kehlmrlQfuDFUt1zZ2dVwrhFQtKREdKBo+rexOwaCoYP0/qpgT9tLxCsZjsgR5Itk1UKPcbgO+FyaNid/bA==",
-      "type": "package",
-      "path": "microsoft.openapi/1.6.17",
-      "files": [
-        ".nupkg.metadata",
-        ".signature.p7s",
-        "README.md",
-        "lib/netstandard2.0/Microsoft.OpenApi.dll",
-        "lib/netstandard2.0/Microsoft.OpenApi.pdb",
-        "lib/netstandard2.0/Microsoft.OpenApi.xml",
-        "microsoft.openapi.1.6.17.nupkg.sha512",
-        "microsoft.openapi.nuspec"
       ]
     },
     "Microsoft.SqlServer.Server/1.0.0": {
@@ -2872,19 +2791,13 @@
       "type": "project",
       "path": "../HealthCare.Infrastructure/HealthCare.Infrastructure.csproj",
       "msbuildProject": "../HealthCare.Infrastructure/HealthCare.Infrastructure.csproj"
-    },
-    "HeathCare.Api/1.0.0": {
-      "type": "project",
-      "path": "../HeathCare.Api/HeathCare.Api.csproj",
-      "msbuildProject": "../HeathCare.Api/HeathCare.Api.csproj"
     }
   },
   "projectFileDependencyGroups": {
     "net9.0": [
       "HealthCare.Application >= 1.0.0",
       "HealthCare.Domain >= 1.0.0",
-      "HealthCare.Infrastructure >= 1.0.0",
-      "HeathCare.Api >= 1.0.0"
+      "HealthCare.Infrastructure >= 1.0.0"
     ]
   },
   "packageFolders": {
@@ -2921,9 +2834,6 @@
             },
             "/Users/ingcampoverde/RiderProjects/HeathCare/HealthCare.Infrastructure/HealthCare.Infrastructure.csproj": {
               "projectPath": "/Users/ingcampoverde/RiderProjects/HeathCare/HealthCare.Infrastructure/HealthCare.Infrastructure.csproj"
-            },
-            "/Users/ingcampoverde/RiderProjects/HeathCare/HeathCare.Api/HeathCare.Api.csproj": {
-              "projectPath": "/Users/ingcampoverde/RiderProjects/HeathCare/HeathCare.Api/HeathCare.Api.csproj"
             }
           }
         }
