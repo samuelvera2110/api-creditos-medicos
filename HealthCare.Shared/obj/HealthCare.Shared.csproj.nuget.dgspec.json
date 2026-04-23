@@ -21,7 +21,6 @@
         ],
         "sources": {
           "/Users/ingcampoverde/LocalNuget": {},
-          "http://localhost:5555/v3/index.json": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
@@ -86,7 +85,6 @@
         ],
         "sources": {
           "/Users/ingcampoverde/LocalNuget": {},
-          "http://localhost:5555/v3/index.json": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
@@ -147,7 +145,6 @@
         ],
         "sources": {
           "/Users/ingcampoverde/LocalNuget": {},
-          "http://localhost:5555/v3/index.json": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
@@ -175,6 +172,14 @@
       "frameworks": {
         "net9.0": {
           "targetAlias": "net9.0",
+          "dependencies": {
+            "Microsoft.EntityFrameworkCore.Tools": {
+              "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[10.0.7, )"
+            }
+          },
           "imports": [
             "net461",
             "net462",
@@ -212,7 +217,6 @@
         ],
         "sources": {
           "/Users/ingcampoverde/LocalNuget": {},
-          "http://localhost:5555/v3/index.json": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
@@ -286,7 +290,6 @@
         ],
         "sources": {
           "/Users/ingcampoverde/LocalNuget": {},
-          "http://localhost:5555/v3/index.json": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
