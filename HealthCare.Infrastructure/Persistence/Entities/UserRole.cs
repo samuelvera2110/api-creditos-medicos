@@ -6,20 +6,15 @@ using Microsoft.EntityFrameworkCore;
 
 namespace HealthCare.Infrastructure.Persistence.Entities;
 
-[Table("Roles", Schema = "auth")]
-[Index("Name", Name = "UQ_Roles_Name", IsUnique = true)]
-public partial class Role
+[PrimaryKey("UserId", "RoleId")]
+[Table("UserRoles", Schema = "auth")]
+public partial class UserRole
 {
     [Key]
+    public int UserId { get; set; }
+
+    [Key]
     public int RoleId { get; set; }
-
-    [StringLength(50)]
-    [Unicode(false)]
-    public string Name { get; set; } = null!;
-
-    [StringLength(250)]
-    [Unicode(false)]
-    public string? Description { get; set; }
 
     [Precision(0)]
     public DateTime CreatedAt { get; set; }
@@ -34,13 +29,18 @@ public partial class Role
     public bool IsActive { get; set; }
 
     [ForeignKey("CreatedBy")]
-    [InverseProperty("RoleCreatedByNavigations")]
+    [InverseProperty("UserRoleCreatedByNavigations")]
     public virtual User? CreatedByNavigation { get; set; }
 
+    [ForeignKey("RoleId")]
+    [InverseProperty("UserRoles")]
+    public virtual Role Role { get; set; } = null!;
+
     [ForeignKey("UpdatedBy")]
-    [InverseProperty("RoleUpdatedByNavigations")]
+    [InverseProperty("UserRoleUpdatedByNavigations")]
     public virtual User? UpdatedByNavigation { get; set; }
 
-    [InverseProperty("Role")]
-    public virtual ICollection<UserRole> UserRoles { get; set; } = new List<UserRole>();
+    [ForeignKey("UserId")]
+    [InverseProperty("UserRoleUsers")]
+    public virtual User User { get; set; } = null!;
 }

@@ -6,7 +6,7 @@
 
 # ─── CONNECTION STRING ───────────────────────────────────────
 $Server   = "localhost"       # Ej: localhost  |  192.168.1.10  |  miserver.database.windows.net
-$Database = "master"             # Ej: HeathCareDB
+$Database = "HealthCare"             # Ej: HeathCareDB
 $User     = "sa"        # Ej: sa
 $Password = "Dragoncity5*"       # Ej: Admin1234!
 
