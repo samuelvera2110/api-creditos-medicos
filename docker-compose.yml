@@ -1,0 +1,22 @@
+# ============================================================
+#  Docker Compose — HeathCare SQL Server pilas
+#  Uso: docker compose up -d
+# ============================================================
+
+services:
+  sqlserver:
+    image: mcr.microsoft.com/mssql/server:2022-latest
+    container_name: healthcare_sqlserver
+    restart: unless-stopped
+    ports:
+      - "1433:1433"
+    environment:
+      ACCEPT_EULA: "Y"
+      MSSQL_SA_PASSWORD: "Dragoncity5*"
+      MSSQL_PID: "Developer"
+    volumes:
+      - sqlserver_data:/var/opt/mssql
+
+volumes:
+  sqlserver_data:
+    name: healthcare_sqlserver_data
