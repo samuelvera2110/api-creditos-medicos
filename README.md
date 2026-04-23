@@ -181,12 +181,45 @@ brew install powershell
 
 ---
 
+# 🗄️ Scripts de Base de Datos
+
+En la carpeta `Database/scripts/` se encuentran los scripts SQL del proyecto. Deben ejecutarse **después de levantar el contenedor de Docker** para crear las tablas y estructura inicial.
+
+```
+HeathCare/
+└── Database/
+    └── scripts/
+        └── 00_Init_Auth_Module.sql     ← Tablas del módulo de autenticación
+```
+
+## ▶️ ¿Cómo ejecutar el script?
+
+1. Levanta el contenedor:
+```bash
+docker compose up -d
+```
+
+2. Conéctate con tu cliente SQL (SSMS, Azure Data Studio, DBeaver, Rider):
+
+| Campo | Valor |
+|---|---|
+| Server | `localhost,1433` |
+| Usuario | `sa` |
+| Password | la que configuraste en `docker-compose.yml` |
+
+3. Abre `Database/scripts/00_Init_Auth_Module.sql`, copia el contenido y ejecútalo.
+
+> 💡 Los scripts están numerados (`00_`, `01_`, etc.) para indicar el orden de ejecución. Respeta ese orden si hay más de uno en el futuro.
+
+---
+
 # 🗂️ Archivos en la raíz del repositorio
 
-| Archivo | Descripción |
+| Archivo / Carpeta | Descripción |
 |---|---|
 | `docker-compose.yml` | Levanta SQL Server 2022 con Docker |
 | `scaffold.ps1` | Genera entidades y DbContext desde la BD |
+| `Database/scripts/` | Scripts SQL para crear tablas y estructura |
 | `HealthCare.sln` | Solución principal del proyecto |
 | `README.md` | Este archivo |
 
@@ -203,24 +236,53 @@ brew install powershell
 
 ---
 
-# 🚀 Guía de inicio rápido
+# 🚀 Guía de inicio rápido — Primera vez
 
-Pasos para levantar el proyecto desde cero:
+Sigue estos pasos en orden para levantar el proyecto desde cero:
 
+### Paso 1 — Clonar el repositorio
 ```bash
-# 1. Clonar el repositorio
 git clone <url-del-repo>
 cd HeathCare
+```
 
-# 2. Levantar SQL Server
+### Paso 2 — Levantar SQL Server con Docker
+```bash
 docker compose up -d
+```
+Verifica que esté corriendo:
+```bash
+docker compose ps
+```
+Debes ver el contenedor `healthcare_sqlserver` en estado `running`.
 
-# 3. Restaurar dependencias
-dotnet restore
+### Paso 3 — Ejecutar el script de base de datos
+Conéctate a `localhost,1433` con usuario `sa` desde tu cliente SQL favorito (SSMS, Azure Data Studio, DBeaver, Rider), luego abre y ejecuta:
+```
+Database/scripts/00_Init_Auth_Module.sql
+```
+Esto crea todas las tablas necesarias para el proyecto.
 
-# 4. Generar entidades desde la BD
+### Paso 4 — Generar las entidades con Scaffold
+```bash
 pwsh scaffold.ps1
+```
+Esto genera automáticamente las clases C# en `HealthCare.Infrastructure/Persistence/Entities/` y el `DbContext` en `Persistence/Context/`.
 
-# 5. Correr la API
+> ⚠️ Asegúrate de que el `scaffold.ps1` tenga configuradas las credenciales correctas antes de ejecutarlo.
+
+### Paso 5 — Restaurar dependencias
+```bash
+dotnet restore
+```
+
+### Paso 6 — Correr la API
+```bash
 dotnet run --project HeathCare.Api/HeathCare.Api.csproj
 ```
+
+La API estará disponible en `https://localhost:5001` o `http://localhost:5000`.
+
+---
+
+> 🔁 **Próximas veces** solo necesitas `docker compose up -d` y `dotnet run`. El scaffold solo se vuelve a ejecutar si hay cambios en la base de datos.
