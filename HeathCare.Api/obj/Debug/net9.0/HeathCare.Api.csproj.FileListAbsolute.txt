@@ -169,3 +169,4 @@
 /Users/ingcampoverde/RiderProjects/HeathCare/HeathCare.Api/bin/Debug/net9.0/runtimes/win/lib/net6.0/System.Windows.Extensions.dll
 /Users/ingcampoverde/RiderProjects/HeathCare/HeathCare.Api/bin/Debug/net9.0/HealthCare.Shared.dll
 /Users/ingcampoverde/RiderProjects/HeathCare/HeathCare.Api/bin/Debug/net9.0/HealthCare.Shared.pdb
+/Users/ingcampoverde/RiderProjects/HeathCare/HeathCare.Api/bin/Debug/net9.0/Scalar.AspNetCore.dll

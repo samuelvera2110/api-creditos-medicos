@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "4TtOYVs8QHE=",
+  "dgSpecHash": "QaQxJZMJcB0=",
   "success": true,
   "projectFilePath": "/Users/ingcampoverde/RiderProjects/HeathCare/HeathCare.Api/HeathCare.Api.csproj",
   "expectedPackageFiles": [
@@ -50,6 +50,7 @@
     "/Users/ingcampoverde/.nuget/packages/microsoft.sqlserver.server/1.0.0/microsoft.sqlserver.server.1.0.0.nupkg.sha512",
     "/Users/ingcampoverde/.nuget/packages/microsoft.win32.systemevents/6.0.0/microsoft.win32.systemevents.6.0.0.nupkg.sha512",
     "/Users/ingcampoverde/.nuget/packages/mono.texttemplating/3.0.0/mono.texttemplating.3.0.0.nupkg.sha512",
+    "/Users/ingcampoverde/.nuget/packages/scalar.aspnetcore/2.14.4/scalar.aspnetcore.2.14.4.nupkg.sha512",
     "/Users/ingcampoverde/.nuget/packages/system.clientmodel/1.0.0/system.clientmodel.1.0.0.nupkg.sha512",
     "/Users/ingcampoverde/.nuget/packages/system.codedom/6.0.0/system.codedom.6.0.0.nupkg.sha512",
     "/Users/ingcampoverde/.nuget/packages/system.collections.immutable/7.0.0/system.collections.immutable.7.0.0.nupkg.sha512",
