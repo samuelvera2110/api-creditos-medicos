@@ -13,9 +13,8 @@ public static class AppExceptions
         public List<string>? Errors { get; }
     }
 
-    public class UnauthorizedException(string message = "No autorizado.") : Exception(message);
-
-    public class ForbiddenException(string message = "Acceso denegado.") : Exception(message);
+    public class UnauthorizedException(string message = ExceptionMessage.UNAUTHORIZED) : Exception(message);
+    public class ForbiddenException(string message = ExceptionMessage.FORBIDDEN) : Exception(message);
 
     public class ConflictException(string message) : Exception(message);
     

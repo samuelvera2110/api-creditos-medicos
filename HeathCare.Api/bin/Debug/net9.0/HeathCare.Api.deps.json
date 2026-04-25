@@ -10,6 +10,7 @@
         "dependencies": {
           "HealthCare.Application": "1.0.0",
           "HealthCare.Infrastructure": "1.0.0",
+          "HealthCare.Shared": "1.0.0",
           "Microsoft.AspNetCore.OpenApi": "9.0.8",
           "Microsoft.EntityFrameworkCore.Design": "9.0.4"
         },
@@ -1040,6 +1041,19 @@
             "fileVersion": "1.0.0.0"
           }
         }
+      },
+      "HealthCare.Shared/1.0.0": {
+        "dependencies": {
+          "HealthCare.Application": "1.0.0",
+          "HealthCare.Domain": "1.0.0",
+          "HealthCare.Infrastructure": "1.0.0"
+        },
+        "runtime": {
+          "HealthCare.Shared.dll": {
+            "assemblyVersion": "1.0.0.0",
+            "fileVersion": "1.0.0.0"
+          }
+        }
       }
     }
   },
@@ -1620,6 +1634,11 @@
       "sha512": ""
     },
     "HealthCare.Infrastructure/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "HealthCare.Shared/1.0.0": {
       "type": "project",
       "serviceable": false,
       "sha512": ""

@@ -8,7 +8,7 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddOpenApi();
 
 builder.Services.AddDbContext<HeathCareDbContext>(options =>
-    options.UseSqlServer(builder.Configuration[DatabaseConstants.DefaultConnection]));
+    options.UseSqlServer(builder.Configuration[ConfigurationConstants.CONNECTION_STRING_DATABASE]));
 
 
 var app = builder.Build();
