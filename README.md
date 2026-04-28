@@ -263,6 +263,26 @@ Database/scripts/00_Init_Auth_Module.sql
 ```
 Esto crea todas las tablas necesarias para el proyecto.
 
+### Paso Adicional!! 
+--Debe dirigirte a la capa de Api 
+cd Heathcare.Api 
+de ahi inicializar la user user secrets  
+"dotnet user-secrets init" 
+Esto generara dicha carpeta con su UUID, entonces debes pegar esto: 
+
+{
+  "ConnectionStrings:DefaultConnection": "Server=localhost;Database=HealthCare;User Id=sa;Password=Dragoncity5*;TrustServerCertificate=True;"
+}
+
+
+User-secrets: son variables de entorno donde se crea un espacio de memoria categorizado por "UUID" dentro del csproject, como primera linea de busqueda que hace .net es visualizar si tiene
+user secrets ---> launchsettings ----> appsettings 
+
+<img width="777" height="300" alt="image" src="https://github.com/user-attachments/assets/e266b5cc-00f6-4d62-83e4-727003f3fe24" />
+
+
+
+
 ### Paso 4 — Generar las entidades con Scaffold
 ```bash
 pwsh scaffold.ps1
