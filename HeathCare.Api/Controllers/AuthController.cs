@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace HeathCare.Api.Controllers.v1.Auth;
 
 [ApiController]
-[Route("api/v1/auth")] 
+[Route("[controller]")]
 [Tags("Authentication")]
 public class AuthController(IAuthService authService) : ControllerBase 
 {
