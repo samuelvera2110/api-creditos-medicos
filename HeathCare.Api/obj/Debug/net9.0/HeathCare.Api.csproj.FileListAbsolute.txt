@@ -309,3 +309,8 @@
 /Users/ingcampoverde/RiderProjects/api-creditos-medicos/HeathCare.Api/obj/Debug/net9.0/ref/HeathCare.Api.dll
 /Users/ingcampoverde/RiderProjects/api-creditos-medicos/HeathCare.Api/bin/Debug/net9.0/Npgsql.dll
 /Users/ingcampoverde/RiderProjects/api-creditos-medicos/HeathCare.Api/bin/Debug/net9.0/Npgsql.EntityFrameworkCore.PostgreSQL.dll
+/Users/ingcampoverde/RiderProjects/api-creditos-medicos/HeathCare.Api/bin/Debug/net9.0/Microsoft.IdentityModel.Abstractions.dll
+/Users/ingcampoverde/RiderProjects/api-creditos-medicos/HeathCare.Api/bin/Debug/net9.0/Microsoft.IdentityModel.JsonWebTokens.dll
+/Users/ingcampoverde/RiderProjects/api-creditos-medicos/HeathCare.Api/bin/Debug/net9.0/Microsoft.IdentityModel.Logging.dll
+/Users/ingcampoverde/RiderProjects/api-creditos-medicos/HeathCare.Api/bin/Debug/net9.0/Microsoft.IdentityModel.Tokens.dll
+/Users/ingcampoverde/RiderProjects/api-creditos-medicos/HeathCare.Api/bin/Debug/net9.0/System.IdentityModel.Tokens.Jwt.dll

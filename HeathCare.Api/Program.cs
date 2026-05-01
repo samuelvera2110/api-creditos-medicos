@@ -4,7 +4,7 @@ using Scalar.AspNetCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
-await builder.Services.AddCore(builder.Configuration);
+builder.Services.AddCore(builder.Configuration);
 
 var app = builder.Build();
 

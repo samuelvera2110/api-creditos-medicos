@@ -33,7 +33,7 @@ public class JwtProvider(IOptions<JwtSettings> jwtOptions) : IJwtProvider
             claims.Add(new Claim(ClaimTypes.Role, role));
         }
 
-        var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_jwtSettings.Secret));
+        var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_jwtSettings.PrivateKey));
         
         var credentials = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
 
@@ -41,7 +41,7 @@ public class JwtProvider(IOptions<JwtSettings> jwtOptions) : IJwtProvider
             issuer: _jwtSettings.Issuer,
             audience: _jwtSettings.Audience,
             claims: claims,
-            expires: DateTime.UtcNow.AddMinutes(_jwtSettings.ExpirationInMinutes),
+            expires: DateTime.UtcNow.AddMinutes(_jwtSettings.ExpirationInMinutesMin),
             signingCredentials: credentials);
 
         return new JwtSecurityTokenHandler().WriteToken(token);
