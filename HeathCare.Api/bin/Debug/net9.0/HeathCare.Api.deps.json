@@ -633,7 +633,8 @@
       "System.Threading.Channels/7.0.0": {},
       "HealthCare.Application/1.0.0": {
         "dependencies": {
-          "HealthCare.Domain": "1.0.0"
+          "HealthCare.Domain": "1.0.0",
+          "HealthCare.Shared": "1.0.0"
         },
         "runtime": {
           "HealthCare.Application.dll": {
@@ -652,6 +653,7 @@
       },
       "HealthCare.Infrastructure/1.0.0": {
         "dependencies": {
+          "HealthCare.Application": "1.0.0",
           "HealthCare.Domain": "1.0.0",
           "Microsoft.EntityFrameworkCore": "9.0.4",
           "Npgsql.EntityFrameworkCore.PostgreSQL": "9.0.4"
@@ -664,11 +666,6 @@
         }
       },
       "HealthCare.Shared/1.0.0": {
-        "dependencies": {
-          "HealthCare.Application": "1.0.0",
-          "HealthCare.Domain": "1.0.0",
-          "HealthCare.Infrastructure": "1.0.0"
-        },
         "runtime": {
           "HealthCare.Shared.dll": {
             "assemblyVersion": "1.0.0.0",

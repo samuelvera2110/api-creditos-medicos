@@ -34,3 +34,7 @@
 /Users/ingcampoverde/RiderProjects/api-creditos-medicos/HealthCare.Infrastructure/obj/Debug/net9.0/HealthCare.Infrastructure.pdb
 /Users/ingcampoverde/RiderProjects/api-creditos-medicos/HealthCare.Infrastructure/obj/Debug/net9.0/HealthCare.Infrastructure.genruntimeconfig.cache
 /Users/ingcampoverde/RiderProjects/api-creditos-medicos/HealthCare.Infrastructure/obj/Debug/net9.0/ref/HealthCare.Infrastructure.dll
+/Users/ingcampoverde/RiderProjects/api-creditos-medicos/HealthCare.Infrastructure/bin/Debug/net9.0/HealthCare.Application.dll
+/Users/ingcampoverde/RiderProjects/api-creditos-medicos/HealthCare.Infrastructure/bin/Debug/net9.0/HealthCare.Shared.dll
+/Users/ingcampoverde/RiderProjects/api-creditos-medicos/HealthCare.Infrastructure/bin/Debug/net9.0/HealthCare.Application.pdb
+/Users/ingcampoverde/RiderProjects/api-creditos-medicos/HealthCare.Infrastructure/bin/Debug/net9.0/HealthCare.Shared.pdb

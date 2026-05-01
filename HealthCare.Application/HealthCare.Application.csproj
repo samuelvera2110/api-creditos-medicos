@@ -8,6 +8,11 @@
 
     <ItemGroup>
       <ProjectReference Include="..\HealthCare.Domain\HealthCare.Domain.csproj" />
+      <ProjectReference Include="..\HealthCare.Shared\HealthCare.Shared.csproj" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <Folder Include="Modules\User\Entities\" />
     </ItemGroup>
 
 </Project>

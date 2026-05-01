@@ -12,9 +12,6 @@
     </ItemGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\HealthCare.Application\HealthCare.Application.csproj" />
-      <ProjectReference Include="..\HealthCare.Domain\HealthCare.Domain.csproj" />
-      <ProjectReference Include="..\HealthCare.Infrastructure\HealthCare.Infrastructure.csproj" />
       
     </ItemGroup>
 

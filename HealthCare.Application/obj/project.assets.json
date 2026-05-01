@@ -11,6 +11,16 @@
         "runtime": {
           "bin/placeholder/HealthCare.Domain.dll": {}
         }
+      },
+      "HealthCare.Shared/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v9.0",
+        "compile": {
+          "bin/placeholder/HealthCare.Shared.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/HealthCare.Shared.dll": {}
+        }
       }
     }
   },
@@ -19,11 +29,17 @@
       "type": "project",
       "path": "../HealthCare.Domain/HealthCare.Domain.csproj",
       "msbuildProject": "../HealthCare.Domain/HealthCare.Domain.csproj"
+    },
+    "HealthCare.Shared/1.0.0": {
+      "type": "project",
+      "path": "../HealthCare.Shared/HealthCare.Shared.csproj",
+      "msbuildProject": "../HealthCare.Shared/HealthCare.Shared.csproj"
     }
   },
   "projectFileDependencyGroups": {
     "net9.0": [
-      "HealthCare.Domain >= 1.0.0"
+      "HealthCare.Domain >= 1.0.0",
+      "HealthCare.Shared >= 1.0.0"
     ]
   },
   "packageFolders": {
@@ -54,6 +70,9 @@
           "projectReferences": {
             "/Users/ingcampoverde/RiderProjects/api-creditos-medicos/HealthCare.Domain/HealthCare.Domain.csproj": {
               "projectPath": "/Users/ingcampoverde/RiderProjects/api-creditos-medicos/HealthCare.Domain/HealthCare.Domain.csproj"
+            },
+            "/Users/ingcampoverde/RiderProjects/api-creditos-medicos/HealthCare.Shared/HealthCare.Shared.csproj": {
+              "projectPath": "/Users/ingcampoverde/RiderProjects/api-creditos-medicos/HealthCare.Shared/HealthCare.Shared.csproj"
             }
           }
         }

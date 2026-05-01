@@ -15,6 +15,7 @@ public static class ServiceCollectionExtension
     } 
     
     
+    
     public static void AddDatabase(this IServiceCollection services, IConfiguration configuration)
     {
         var connectionString = Environment.GetEnvironmentVariable("CONNECTION_STRING_DATABASE")
