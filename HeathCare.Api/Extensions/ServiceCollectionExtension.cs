@@ -22,7 +22,7 @@ public static class ServiceCollectionExtension
                                ?? throw new Exception($"No se encontró la configuración: {ConfigurationConstants.CONNECTION_STRING_DATABASE}");
 
         services.AddDbContext<HeathCareDbContext>(options =>
-            options.UseSqlServer(connectionString));
+            options.UseNpgsql(connectionString));
     }
     
   

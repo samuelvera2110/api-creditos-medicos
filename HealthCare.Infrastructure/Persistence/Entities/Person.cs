@@ -6,66 +6,72 @@ using Microsoft.EntityFrameworkCore;
 
 namespace HealthCare.Infrastructure.Persistence.Entities;
 
-[Table("Persons", Schema = "auth")]
-[Index("LastName", "FirstName", Name = "IX_Persons_LastName_FirstName")]
-[Index("DocumentTypeId", "DocumentNumber", Name = "UQ_Persons_Document", IsUnique = true)]
-[Index("Email", Name = "UQ_Persons_Email", IsUnique = true)]
+[Table("persons", Schema = "auth")]
+[Index("Lastname", "Firstname", Name = "ix_persons_lastname_firstname")]
+[Index("Documenttypeid", "Documentnumber", Name = "uq_persons_document", IsUnique = true)]
+[Index("Email", Name = "uq_persons_email", IsUnique = true)]
 public partial class Person
 {
     [Key]
-    public int PersonId { get; set; }
+    [Column("personid")]
+    public int Personid { get; set; }
 
-    public int DocumentTypeId { get; set; }
+    [Column("documenttypeid")]
+    public int Documenttypeid { get; set; }
 
+    [Column("documentnumber")]
     [StringLength(20)]
-    [Unicode(false)]
-    public string DocumentNumber { get; set; } = null!;
+    public string Documentnumber { get; set; } = null!;
 
+    [Column("firstname")]
     [StringLength(80)]
-    [Unicode(false)]
-    public string FirstName { get; set; } = null!;
+    public string Firstname { get; set; } = null!;
 
+    [Column("lastname")]
     [StringLength(80)]
-    [Unicode(false)]
-    public string LastName { get; set; } = null!;
+    public string Lastname { get; set; } = null!;
 
-    public DateOnly? BirthDate { get; set; }
+    [Column("birthdate")]
+    public DateOnly? Birthdate { get; set; }
 
-    [StringLength(1)]
-    [Unicode(false)]
-    public string? Gender { get; set; }
+    [Column("gender")]
+    [MaxLength(1)]
+    public char? Gender { get; set; }
 
+    [Column("email")]
     [StringLength(150)]
-    [Unicode(false)]
     public string Email { get; set; } = null!;
 
+    [Column("phonenumber")]
     [StringLength(25)]
-    [Unicode(false)]
-    public string? PhoneNumber { get; set; }
+    public string? Phonenumber { get; set; }
 
-    [Precision(0)]
-    public DateTime CreatedAt { get; set; }
+    [Column("createdat", TypeName = "timestamp(0) without time zone")]
+    public DateTime Createdat { get; set; }
 
-    public int? CreatedBy { get; set; }
+    [Column("createdby")]
+    public int? Createdby { get; set; }
 
-    [Precision(0)]
-    public DateTime? UpdatedAt { get; set; }
+    [Column("updatedat", TypeName = "timestamp(0) without time zone")]
+    public DateTime? Updatedat { get; set; }
 
-    public int? UpdatedBy { get; set; }
+    [Column("updatedby")]
+    public int? Updatedby { get; set; }
 
-    public bool IsActive { get; set; }
+    [Column("isactive")]
+    public bool Isactive { get; set; }
 
-    [ForeignKey("CreatedBy")]
-    [InverseProperty("PersonCreatedByNavigations")]
-    public virtual User? CreatedByNavigation { get; set; }
+    [ForeignKey("Createdby")]
+    [InverseProperty("PersonCreatedbyNavigations")]
+    public virtual User? CreatedbyNavigation { get; set; }
 
-    [ForeignKey("DocumentTypeId")]
+    [ForeignKey("Documenttypeid")]
     [InverseProperty("People")]
-    public virtual DocumentType DocumentType { get; set; } = null!;
+    public virtual Documenttype Documenttype { get; set; } = null!;
 
-    [ForeignKey("UpdatedBy")]
-    [InverseProperty("PersonUpdatedByNavigations")]
-    public virtual User? UpdatedByNavigation { get; set; }
+    [ForeignKey("Updatedby")]
+    [InverseProperty("PersonUpdatedbyNavigations")]
+    public virtual User? UpdatedbyNavigation { get; set; }
 
     [InverseProperty("Person")]
     public virtual User? User { get; set; }

@@ -10,3 +10,15 @@
 /Users/ingcampoverde/RiderProjects/HeathCare/HealthCare.Domain/obj/Debug/net9.0/refint/HealthCare.Domain.dll
 /Users/ingcampoverde/RiderProjects/HeathCare/HealthCare.Domain/obj/Debug/net9.0/HealthCare.Domain.pdb
 /Users/ingcampoverde/RiderProjects/HeathCare/HealthCare.Domain/obj/Debug/net9.0/ref/HealthCare.Domain.dll
+/Users/ingcampoverde/RiderProjects/api-creditos-medicos/HealthCare.Domain/obj/Debug/net9.0/HealthCare.Domain.GeneratedMSBuildEditorConfig.editorconfig
+/Users/ingcampoverde/RiderProjects/api-creditos-medicos/HealthCare.Domain/obj/Debug/net9.0/HealthCare.Domain.AssemblyInfoInputs.cache
+/Users/ingcampoverde/RiderProjects/api-creditos-medicos/HealthCare.Domain/obj/Debug/net9.0/HealthCare.Domain.AssemblyInfo.cs
+/Users/ingcampoverde/RiderProjects/api-creditos-medicos/HealthCare.Domain/obj/Debug/net9.0/HealthCare.Domain.csproj.CoreCompileInputs.cache
+/Users/ingcampoverde/RiderProjects/api-creditos-medicos/HealthCare.Domain/obj/Debug/net9.0/HealthCare.Domain.sourcelink.json
+/Users/ingcampoverde/RiderProjects/api-creditos-medicos/HealthCare.Domain/obj/Debug/net9.0/HealthCare.Domain.dll
+/Users/ingcampoverde/RiderProjects/api-creditos-medicos/HealthCare.Domain/obj/Debug/net9.0/refint/HealthCare.Domain.dll
+/Users/ingcampoverde/RiderProjects/api-creditos-medicos/HealthCare.Domain/obj/Debug/net9.0/HealthCare.Domain.pdb
+/Users/ingcampoverde/RiderProjects/api-creditos-medicos/HealthCare.Domain/bin/Debug/net9.0/HealthCare.Domain.deps.json
+/Users/ingcampoverde/RiderProjects/api-creditos-medicos/HealthCare.Domain/bin/Debug/net9.0/HealthCare.Domain.dll
+/Users/ingcampoverde/RiderProjects/api-creditos-medicos/HealthCare.Domain/bin/Debug/net9.0/HealthCare.Domain.pdb
+/Users/ingcampoverde/RiderProjects/api-creditos-medicos/HealthCare.Domain/obj/Debug/net9.0/ref/HealthCare.Domain.dll

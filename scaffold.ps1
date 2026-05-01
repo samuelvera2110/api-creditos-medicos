@@ -1,39 +1,40 @@
 # ============================================================
-#  EF Core Scaffold — HeathCare
+#  EF Core Scaffold — HealthCare (PostgreSQL 18)
 #  Uso: ./scaffold.ps1
 #  Desde la raiz de la solucion: HeathCare/
 # ============================================================
 
 # ─── CONNECTION STRING ───────────────────────────────────────
-$Server   = "localhost"       # Ej: localhost  |  192.168.1.10  |  miserver.database.windows.net
-$Database = "HealthCare"             # Ej: HeathCareDB
-$User     = "sa"        # Ej: sa
-$Password = "Dragoncity5*"       # Ej: Admin1234!
+$Server   = "dpg-d7qc1n4m0tmc73d12db0-a.oregon-postgres.render.com"
+$Port     = "5432"
+$Database = "healthcare_3aof"
+$User     = "jchango1"
+$Password = "VTiwx7ZMdgDqUviDLpWhuwMmwKzqifW0"
 
-$ConnectionString = "Server=$Server;Database=$Database;User Id=$User;Password=$Password;TrustServerCertificate=True;"
+$ConnectionString = "Host=$Server;Port=$Port;Database=$Database;Username=$User;Password=$Password;"
 
 # ─── PROYECTOS ───────────────────────────────────────────────
-$Project = "HealthCare.Infrastructure/HealthCare.Infrastructure.csproj"
+$Project        = "HealthCare.Infrastructure/HealthCare.Infrastructure.csproj"
 $StartupProject = "HeathCare.Api/HeathCare.Api.csproj"
 
 # ─── SALIDA ──────────────────────────────────────────────────
-$OutputDir  = "Persistence/Entities"
-$ContextDir = "Persistence/Context"
+$OutputDir   = "Persistence/Entities"
+$ContextDir  = "Persistence/Context"
 $ContextName = "HeathCareDbContext"
 
 # ─── SCAFFOLD ────────────────────────────────────────────────
 Write-Host ""
 Write-Host "==============================================" -ForegroundColor Cyan
-Write-Host "  EF Core Scaffold — HeathCare" -ForegroundColor Cyan
+Write-Host "  EF Core Scaffold — HealthCare (PostgreSQL)" -ForegroundColor Cyan
 Write-Host "==============================================" -ForegroundColor Cyan
-Write-Host "  Server   : $Server" -ForegroundColor Gray
+Write-Host "  Server   : $Server`:$Port" -ForegroundColor Gray
 Write-Host "  Database : $Database" -ForegroundColor Gray
 Write-Host "  Proyecto : $Project" -ForegroundColor Gray
 Write-Host "==============================================" -ForegroundColor Cyan
 Write-Host ""
 
 dotnet ef dbcontext scaffold $ConnectionString `
-    Microsoft.EntityFrameworkCore.SqlServer `
+    Npgsql.EntityFrameworkCore.PostgreSQL `
     --project $Project `
     --startup-project $StartupProject `
     --output-dir $OutputDir `
@@ -47,8 +48,8 @@ dotnet ef dbcontext scaffold $ConnectionString `
 if ($LASTEXITCODE -eq 0) {
     Write-Host ""
     Write-Host "  Scaffold completado exitosamente!" -ForegroundColor Green
-    Write-Host "  Entidades  -> HeathCare.Infrastructure/$OutputDir" -ForegroundColor Green
-    Write-Host "  DbContext  -> HeathCare.Infrastructure/$ContextDir/$ContextName.cs" -ForegroundColor Green
+    Write-Host "  Entidades -> HealthCare.Infrastructure/$OutputDir" -ForegroundColor Green
+    Write-Host "  DbContext -> HealthCare.Infrastructure/$ContextDir/$ContextName.cs" -ForegroundColor Green
     Write-Host ""
 } else {
     Write-Host ""

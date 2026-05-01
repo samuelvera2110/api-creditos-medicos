@@ -6,107 +6,114 @@ using Microsoft.EntityFrameworkCore;
 
 namespace HealthCare.Infrastructure.Persistence.Entities;
 
-[Table("Users", Schema = "auth")]
-[Index("IsActive", Name = "IX_Users_IsActive")]
-[Index("PersonId", Name = "UQ_Users_PersonId", IsUnique = true)]
-[Index("Username", Name = "UQ_Users_Username", IsUnique = true)]
+[Table("users", Schema = "auth")]
+[Index("Isactive", Name = "ix_users_isactive")]
+[Index("Personid", Name = "uq_users_personid", IsUnique = true)]
+[Index("Username", Name = "uq_users_username", IsUnique = true)]
 public partial class User
 {
     [Key]
-    public int UserId { get; set; }
+    [Column("userid")]
+    public int Userid { get; set; }
 
-    public int PersonId { get; set; }
+    [Column("personid")]
+    public int Personid { get; set; }
 
+    [Column("username")]
     [StringLength(50)]
-    [Unicode(false)]
     public string Username { get; set; } = null!;
 
-    [MaxLength(256)]
-    public byte[] PasswordHash { get; set; } = null!;
+    [Column("passwordhash")]
+    public byte[] Passwordhash { get; set; } = null!;
 
-    [MaxLength(128)]
-    public byte[] PasswordSalt { get; set; } = null!;
+    [Column("passwordsalt")]
+    public byte[] Passwordsalt { get; set; } = null!;
 
-    [Precision(0)]
-    public DateTime? PasswordChangedAt { get; set; }
+    [Column("passwordchangedat", TypeName = "timestamp(0) without time zone")]
+    public DateTime? Passwordchangedat { get; set; }
 
-    public bool MustChangePassword { get; set; }
+    [Column("mustchangepassword")]
+    public bool Mustchangepassword { get; set; }
 
-    public int FailedLoginAttempts { get; set; }
+    [Column("failedloginattempts")]
+    public int Failedloginattempts { get; set; }
 
-    [Precision(0)]
-    public DateTime? LockoutEndUtc { get; set; }
+    [Column("lockoutendutc", TypeName = "timestamp(0) without time zone")]
+    public DateTime? Lockoutendutc { get; set; }
 
-    [Precision(0)]
-    public DateTime? LastLoginAt { get; set; }
+    [Column("lastloginat", TypeName = "timestamp(0) without time zone")]
+    public DateTime? Lastloginat { get; set; }
 
+    [Column("lastloginip")]
     [StringLength(45)]
-    [Unicode(false)]
-    public string? LastLoginIp { get; set; }
+    public string? Lastloginip { get; set; }
 
-    [Precision(0)]
-    public DateTime CreatedAt { get; set; }
+    [Column("createdat", TypeName = "timestamp(0) without time zone")]
+    public DateTime Createdat { get; set; }
 
-    public int? CreatedBy { get; set; }
+    [Column("createdby")]
+    public int? Createdby { get; set; }
 
-    [Precision(0)]
-    public DateTime? UpdatedAt { get; set; }
+    [Column("updatedat", TypeName = "timestamp(0) without time zone")]
+    public DateTime? Updatedat { get; set; }
 
-    public int? UpdatedBy { get; set; }
+    [Column("updatedby")]
+    public int? Updatedby { get; set; }
 
-    public bool IsActive { get; set; }
+    [Column("isactive")]
+    public bool Isactive { get; set; }
 
-    [ForeignKey("CreatedBy")]
-    [InverseProperty("InverseCreatedByNavigation")]
-    public virtual User? CreatedByNavigation { get; set; }
+    [ForeignKey("Createdby")]
+    [InverseProperty("InverseCreatedbyNavigation")]
+    public virtual User? CreatedbyNavigation { get; set; }
 
-    [InverseProperty("CreatedByNavigation")]
-    public virtual ICollection<DocumentType> DocumentTypeCreatedByNavigations { get; set; } = new List<DocumentType>();
+    [InverseProperty("CreatedbyNavigation")]
+    public virtual ICollection<Documenttype> DocumenttypeCreatedbyNavigations { get; set; } = new List<Documenttype>();
 
-    [InverseProperty("UpdatedByNavigation")]
-    public virtual ICollection<DocumentType> DocumentTypeUpdatedByNavigations { get; set; } = new List<DocumentType>();
+    [InverseProperty("UpdatedbyNavigation")]
+    public virtual ICollection<Documenttype> DocumenttypeUpdatedbyNavigations { get; set; } = new List<Documenttype>();
 
-    [InverseProperty("CreatedByNavigation")]
-    public virtual ICollection<User> InverseCreatedByNavigation { get; set; } = new List<User>();
+    [InverseProperty("CreatedbyNavigation")]
+    public virtual ICollection<User> InverseCreatedbyNavigation { get; set; } = new List<User>();
 
-    [InverseProperty("UpdatedByNavigation")]
-    public virtual ICollection<User> InverseUpdatedByNavigation { get; set; } = new List<User>();
+    [InverseProperty("UpdatedbyNavigation")]
+    public virtual ICollection<User> InverseUpdatedbyNavigation { get; set; } = new List<User>();
 
-    [ForeignKey("PersonId")]
+    [ForeignKey("Personid")]
     [InverseProperty("User")]
     public virtual Person Person { get; set; } = null!;
 
-    [InverseProperty("CreatedByNavigation")]
-    public virtual ICollection<Person> PersonCreatedByNavigations { get; set; } = new List<Person>();
+    [InverseProperty("CreatedbyNavigation")]
+    public virtual ICollection<Person> PersonCreatedbyNavigations { get; set; } = new List<Person>();
 
-    [InverseProperty("UpdatedByNavigation")]
-    public virtual ICollection<Person> PersonUpdatedByNavigations { get; set; } = new List<Person>();
+    [InverseProperty("UpdatedbyNavigation")]
+    public virtual ICollection<Person> PersonUpdatedbyNavigations { get; set; } = new List<Person>();
 
-    [InverseProperty("CreatedByNavigation")]
-    public virtual ICollection<Profile> ProfileCreatedByNavigations { get; set; } = new List<Profile>();
+    [InverseProperty("CreatedbyNavigation")]
+    public virtual ICollection<Profile> ProfileCreatedbyNavigations { get; set; } = new List<Profile>();
 
-    [InverseProperty("UpdatedByNavigation")]
-    public virtual ICollection<Profile> ProfileUpdatedByNavigations { get; set; } = new List<Profile>();
+    [InverseProperty("UpdatedbyNavigation")]
+    public virtual ICollection<Profile> ProfileUpdatedbyNavigations { get; set; } = new List<Profile>();
 
     [InverseProperty("User")]
     public virtual Profile? ProfileUser { get; set; }
 
-    [InverseProperty("CreatedByNavigation")]
-    public virtual ICollection<Role> RoleCreatedByNavigations { get; set; } = new List<Role>();
+    [InverseProperty("CreatedbyNavigation")]
+    public virtual ICollection<Role> RoleCreatedbyNavigations { get; set; } = new List<Role>();
 
-    [InverseProperty("UpdatedByNavigation")]
-    public virtual ICollection<Role> RoleUpdatedByNavigations { get; set; } = new List<Role>();
+    [InverseProperty("UpdatedbyNavigation")]
+    public virtual ICollection<Role> RoleUpdatedbyNavigations { get; set; } = new List<Role>();
 
-    [ForeignKey("UpdatedBy")]
-    [InverseProperty("InverseUpdatedByNavigation")]
-    public virtual User? UpdatedByNavigation { get; set; }
+    [ForeignKey("Updatedby")]
+    [InverseProperty("InverseUpdatedbyNavigation")]
+    public virtual User? UpdatedbyNavigation { get; set; }
 
-    [InverseProperty("CreatedByNavigation")]
-    public virtual ICollection<UserRole> UserRoleCreatedByNavigations { get; set; } = new List<UserRole>();
+    [InverseProperty("CreatedbyNavigation")]
+    public virtual ICollection<Userrole> UserroleCreatedbyNavigations { get; set; } = new List<Userrole>();
 
-    [InverseProperty("UpdatedByNavigation")]
-    public virtual ICollection<UserRole> UserRoleUpdatedByNavigations { get; set; } = new List<UserRole>();
+    [InverseProperty("UpdatedbyNavigation")]
+    public virtual ICollection<Userrole> UserroleUpdatedbyNavigations { get; set; } = new List<Userrole>();
 
     [InverseProperty("User")]
-    public virtual ICollection<UserRole> UserRoleUsers { get; set; } = new List<UserRole>();
+    public virtual ICollection<Userrole> UserroleUsers { get; set; } = new List<Userrole>();
 }

@@ -6,55 +6,62 @@ using Microsoft.EntityFrameworkCore;
 
 namespace HealthCare.Infrastructure.Persistence.Entities;
 
-[Table("Profiles", Schema = "auth")]
-[Index("Department", Name = "IX_Profiles_Department")]
-[Index("EmployeeCode", Name = "UQ_Profiles_EmployeeCode", IsUnique = true)]
-[Index("UserId", Name = "UQ_Profiles_UserId", IsUnique = true)]
+[Table("profiles", Schema = "auth")]
+[Index("Department", Name = "ix_profiles_department")]
+[Index("Employeecode", Name = "uq_profiles_employeecode", IsUnique = true)]
+[Index("Userid", Name = "uq_profiles_userid", IsUnique = true)]
 public partial class Profile
 {
     [Key]
-    public int ProfileId { get; set; }
+    [Column("profileid")]
+    public int Profileid { get; set; }
 
-    public int UserId { get; set; }
+    [Column("userid")]
+    public int Userid { get; set; }
 
+    [Column("employeecode")]
     [StringLength(30)]
-    [Unicode(false)]
-    public string EmployeeCode { get; set; } = null!;
+    public string Employeecode { get; set; } = null!;
 
+    [Column("jobtitle")]
     [StringLength(100)]
-    [Unicode(false)]
-    public string? JobTitle { get; set; }
+    public string? Jobtitle { get; set; }
 
+    [Column("department")]
     [StringLength(100)]
-    [Unicode(false)]
     public string? Department { get; set; }
 
-    public DateOnly? HireDate { get; set; }
+    [Column("hiredate")]
+    public DateOnly? Hiredate { get; set; }
 
-    [Column(TypeName = "decimal(12, 2)")]
-    public decimal? BaseSalary { get; set; }
+    [Column("basesalary")]
+    [Precision(12, 2)]
+    public decimal? Basesalary { get; set; }
 
-    [Precision(0)]
-    public DateTime CreatedAt { get; set; }
+    [Column("createdat", TypeName = "timestamp(0) without time zone")]
+    public DateTime Createdat { get; set; }
 
-    public int? CreatedBy { get; set; }
+    [Column("createdby")]
+    public int? Createdby { get; set; }
 
-    [Precision(0)]
-    public DateTime? UpdatedAt { get; set; }
+    [Column("updatedat", TypeName = "timestamp(0) without time zone")]
+    public DateTime? Updatedat { get; set; }
 
-    public int? UpdatedBy { get; set; }
+    [Column("updatedby")]
+    public int? Updatedby { get; set; }
 
-    public bool IsActive { get; set; }
+    [Column("isactive")]
+    public bool Isactive { get; set; }
 
-    [ForeignKey("CreatedBy")]
-    [InverseProperty("ProfileCreatedByNavigations")]
-    public virtual User? CreatedByNavigation { get; set; }
+    [ForeignKey("Createdby")]
+    [InverseProperty("ProfileCreatedbyNavigations")]
+    public virtual User? CreatedbyNavigation { get; set; }
 
-    [ForeignKey("UpdatedBy")]
-    [InverseProperty("ProfileUpdatedByNavigations")]
-    public virtual User? UpdatedByNavigation { get; set; }
+    [ForeignKey("Updatedby")]
+    [InverseProperty("ProfileUpdatedbyNavigations")]
+    public virtual User? UpdatedbyNavigation { get; set; }
 
-    [ForeignKey("UserId")]
+    [ForeignKey("Userid")]
     [InverseProperty("ProfileUser")]
     public virtual User User { get; set; } = null!;
 }

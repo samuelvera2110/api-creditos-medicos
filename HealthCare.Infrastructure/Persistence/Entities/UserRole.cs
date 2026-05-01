@@ -6,41 +6,46 @@ using Microsoft.EntityFrameworkCore;
 
 namespace HealthCare.Infrastructure.Persistence.Entities;
 
-[PrimaryKey("UserId", "RoleId")]
-[Table("UserRoles", Schema = "auth")]
-public partial class UserRole
+[PrimaryKey("Userid", "Roleid")]
+[Table("userroles", Schema = "auth")]
+public partial class Userrole
 {
     [Key]
-    public int UserId { get; set; }
+    [Column("userid")]
+    public int Userid { get; set; }
 
     [Key]
-    public int RoleId { get; set; }
+    [Column("roleid")]
+    public int Roleid { get; set; }
 
-    [Precision(0)]
-    public DateTime CreatedAt { get; set; }
+    [Column("createdat", TypeName = "timestamp(0) without time zone")]
+    public DateTime Createdat { get; set; }
 
-    public int? CreatedBy { get; set; }
+    [Column("createdby")]
+    public int? Createdby { get; set; }
 
-    [Precision(0)]
-    public DateTime? UpdatedAt { get; set; }
+    [Column("updatedat", TypeName = "timestamp(0) without time zone")]
+    public DateTime? Updatedat { get; set; }
 
-    public int? UpdatedBy { get; set; }
+    [Column("updatedby")]
+    public int? Updatedby { get; set; }
 
-    public bool IsActive { get; set; }
+    [Column("isactive")]
+    public bool Isactive { get; set; }
 
-    [ForeignKey("CreatedBy")]
-    [InverseProperty("UserRoleCreatedByNavigations")]
-    public virtual User? CreatedByNavigation { get; set; }
+    [ForeignKey("Createdby")]
+    [InverseProperty("UserroleCreatedbyNavigations")]
+    public virtual User? CreatedbyNavigation { get; set; }
 
-    [ForeignKey("RoleId")]
-    [InverseProperty("UserRoles")]
+    [ForeignKey("Roleid")]
+    [InverseProperty("Userroles")]
     public virtual Role Role { get; set; } = null!;
 
-    [ForeignKey("UpdatedBy")]
-    [InverseProperty("UserRoleUpdatedByNavigations")]
-    public virtual User? UpdatedByNavigation { get; set; }
+    [ForeignKey("Updatedby")]
+    [InverseProperty("UserroleUpdatedbyNavigations")]
+    public virtual User? UpdatedbyNavigation { get; set; }
 
-    [ForeignKey("UserId")]
-    [InverseProperty("UserRoleUsers")]
+    [ForeignKey("Userid")]
+    [InverseProperty("UserroleUsers")]
     public virtual User User { get; set; } = null!;
 }

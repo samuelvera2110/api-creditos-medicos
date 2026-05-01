@@ -32,11 +32,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "/Users/ingcampoverde/RiderProjects/HeathCare/HealthCare.Application/HealthCare.Application.csproj",
+      "projectUniqueName": "/Users/ingcampoverde/RiderProjects/api-creditos-medicos/HealthCare.Application/HealthCare.Application.csproj",
       "projectName": "HealthCare.Application",
-      "projectPath": "/Users/ingcampoverde/RiderProjects/HeathCare/HealthCare.Application/HealthCare.Application.csproj",
+      "projectPath": "/Users/ingcampoverde/RiderProjects/api-creditos-medicos/HealthCare.Application/HealthCare.Application.csproj",
       "packagesPath": "/Users/ingcampoverde/.nuget/packages/",
-      "outputPath": "/Users/ingcampoverde/RiderProjects/HeathCare/HealthCare.Application/obj/",
+      "outputPath": "/Users/ingcampoverde/RiderProjects/api-creditos-medicos/HealthCare.Application/obj/",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "/Users/ingcampoverde/.nuget/NuGet/NuGet.Config"
@@ -52,8 +52,8 @@
         "net9.0": {
           "targetAlias": "net9.0",
           "projectReferences": {
-            "/Users/ingcampoverde/RiderProjects/HeathCare/HealthCare.Domain/HealthCare.Domain.csproj": {
-              "projectPath": "/Users/ingcampoverde/RiderProjects/HeathCare/HealthCare.Domain/HealthCare.Domain.csproj"
+            "/Users/ingcampoverde/RiderProjects/api-creditos-medicos/HealthCare.Domain/HealthCare.Domain.csproj": {
+              "projectPath": "/Users/ingcampoverde/RiderProjects/api-creditos-medicos/HealthCare.Domain/HealthCare.Domain.csproj"
             }
           }
         }

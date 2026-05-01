@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "/Users/ingcampoverde/RiderProjects/HeathCare/HealthCare.Infrastructure/HealthCare.Infrastructure.csproj": {}
+    "/Users/ingcampoverde/RiderProjects/api-creditos-medicos/HealthCare.Infrastructure/HealthCare.Infrastructure.csproj": {}
   },
   "projects": {
-    "/Users/ingcampoverde/RiderProjects/HeathCare/HealthCare.Domain/HealthCare.Domain.csproj": {
+    "/Users/ingcampoverde/RiderProjects/api-creditos-medicos/HealthCare.Domain/HealthCare.Domain.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "/Users/ingcampoverde/RiderProjects/HeathCare/HealthCare.Domain/HealthCare.Domain.csproj",
+        "projectUniqueName": "/Users/ingcampoverde/RiderProjects/api-creditos-medicos/HealthCare.Domain/HealthCare.Domain.csproj",
         "projectName": "HealthCare.Domain",
-        "projectPath": "/Users/ingcampoverde/RiderProjects/HeathCare/HealthCare.Domain/HealthCare.Domain.csproj",
+        "projectPath": "/Users/ingcampoverde/RiderProjects/api-creditos-medicos/HealthCare.Domain/HealthCare.Domain.csproj",
         "packagesPath": "/Users/ingcampoverde/.nuget/packages/",
-        "outputPath": "/Users/ingcampoverde/RiderProjects/HeathCare/HealthCare.Domain/obj/",
+        "outputPath": "/Users/ingcampoverde/RiderProjects/api-creditos-medicos/HealthCare.Domain/obj/",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "/Users/ingcampoverde/.nuget/NuGet/NuGet.Config"
@@ -64,14 +64,14 @@
         }
       }
     },
-    "/Users/ingcampoverde/RiderProjects/HeathCare/HealthCare.Infrastructure/HealthCare.Infrastructure.csproj": {
+    "/Users/ingcampoverde/RiderProjects/api-creditos-medicos/HealthCare.Infrastructure/HealthCare.Infrastructure.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "/Users/ingcampoverde/RiderProjects/HeathCare/HealthCare.Infrastructure/HealthCare.Infrastructure.csproj",
+        "projectUniqueName": "/Users/ingcampoverde/RiderProjects/api-creditos-medicos/HealthCare.Infrastructure/HealthCare.Infrastructure.csproj",
         "projectName": "HealthCare.Infrastructure",
-        "projectPath": "/Users/ingcampoverde/RiderProjects/HeathCare/HealthCare.Infrastructure/HealthCare.Infrastructure.csproj",
+        "projectPath": "/Users/ingcampoverde/RiderProjects/api-creditos-medicos/HealthCare.Infrastructure/HealthCare.Infrastructure.csproj",
         "packagesPath": "/Users/ingcampoverde/.nuget/packages/",
-        "outputPath": "/Users/ingcampoverde/RiderProjects/HeathCare/HealthCare.Infrastructure/obj/",
+        "outputPath": "/Users/ingcampoverde/RiderProjects/api-creditos-medicos/HealthCare.Infrastructure/obj/",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "/Users/ingcampoverde/.nuget/NuGet/NuGet.Config"
@@ -87,8 +87,8 @@
           "net9.0": {
             "targetAlias": "net9.0",
             "projectReferences": {
-              "/Users/ingcampoverde/RiderProjects/HeathCare/HealthCare.Domain/HealthCare.Domain.csproj": {
-                "projectPath": "/Users/ingcampoverde/RiderProjects/HeathCare/HealthCare.Domain/HealthCare.Domain.csproj"
+              "/Users/ingcampoverde/RiderProjects/api-creditos-medicos/HealthCare.Domain/HealthCare.Domain.csproj": {
+                "projectPath": "/Users/ingcampoverde/RiderProjects/api-creditos-medicos/HealthCare.Domain/HealthCare.Domain.csproj"
               }
             }
           }
@@ -119,13 +119,13 @@
               "target": "Package",
               "version": "[9.0.4, )"
             },
-            "Microsoft.EntityFrameworkCore.SqlServer": {
-              "target": "Package",
-              "version": "[9.0.4, )"
-            },
             "Microsoft.EntityFrameworkCore.Tools": {
               "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
               "suppressParent": "All",
+              "target": "Package",
+              "version": "[9.0.4, )"
+            },
+            "Npgsql.EntityFrameworkCore.PostgreSQL": {
               "target": "Package",
               "version": "[9.0.4, )"
             }

@@ -6,41 +6,45 @@ using Microsoft.EntityFrameworkCore;
 
 namespace HealthCare.Infrastructure.Persistence.Entities;
 
-[Table("DocumentTypes", Schema = "auth")]
-[Index("Code", Name = "UQ_DocumentTypes_Code", IsUnique = true)]
-public partial class DocumentType
+[Table("documenttypes", Schema = "auth")]
+[Index("Code", Name = "uq_documenttypes_code", IsUnique = true)]
+public partial class Documenttype
 {
     [Key]
-    public int DocumentTypeId { get; set; }
+    [Column("documenttypeid")]
+    public int Documenttypeid { get; set; }
 
+    [Column("code")]
     [StringLength(10)]
-    [Unicode(false)]
     public string Code { get; set; } = null!;
 
+    [Column("name")]
     [StringLength(80)]
-    [Unicode(false)]
     public string Name { get; set; } = null!;
 
-    [Precision(0)]
-    public DateTime CreatedAt { get; set; }
+    [Column("createdat", TypeName = "timestamp(0) without time zone")]
+    public DateTime Createdat { get; set; }
 
-    public int? CreatedBy { get; set; }
+    [Column("createdby")]
+    public int? Createdby { get; set; }
 
-    [Precision(0)]
-    public DateTime? UpdatedAt { get; set; }
+    [Column("updatedat", TypeName = "timestamp(0) without time zone")]
+    public DateTime? Updatedat { get; set; }
 
-    public int? UpdatedBy { get; set; }
+    [Column("updatedby")]
+    public int? Updatedby { get; set; }
 
-    public bool IsActive { get; set; }
+    [Column("isactive")]
+    public bool Isactive { get; set; }
 
-    [ForeignKey("CreatedBy")]
-    [InverseProperty("DocumentTypeCreatedByNavigations")]
-    public virtual User? CreatedByNavigation { get; set; }
+    [ForeignKey("Createdby")]
+    [InverseProperty("DocumenttypeCreatedbyNavigations")]
+    public virtual User? CreatedbyNavigation { get; set; }
 
-    [InverseProperty("DocumentType")]
+    [InverseProperty("Documenttype")]
     public virtual ICollection<Person> People { get; set; } = new List<Person>();
 
-    [ForeignKey("UpdatedBy")]
-    [InverseProperty("DocumentTypeUpdatedByNavigations")]
-    public virtual User? UpdatedByNavigation { get; set; }
+    [ForeignKey("Updatedby")]
+    [InverseProperty("DocumenttypeUpdatedbyNavigations")]
+    public virtual User? UpdatedbyNavigation { get; set; }
 }
