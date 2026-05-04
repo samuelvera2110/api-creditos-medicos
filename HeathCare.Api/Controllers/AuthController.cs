@@ -1,17 +1,15 @@
 using HealthCare.Application.Modules.Auth.DTOs;
 using HealthCare.Application.Modules.Auth.Security.Interfaces;
-using HealthCare.Application.Modules.Auth.Services;
-using HealthCare.Shared.Wrappers; 
+using HealthCare.Shared.Wrappers;
 using Microsoft.AspNetCore.Mvc;
 
-namespace HeathCare.Api.Controllers.v1.Auth;
+namespace HeathCare.Api.Controllers;
 
 [ApiController]
 [Route("[controller]")]
 [Tags("Authentication")]
 public class AuthController(IAuthService authService) : ControllerBase 
 {
-  
     [HttpPost("login")]
     [EndpointSummary("Autenticación de Usuarios")]
     [EndpointDescription("Valida credenciales, verifica el hash y retorna un token JWT firmado junto con la información del perfil.")]
