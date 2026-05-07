@@ -1,16 +1,22 @@
+using FluentValidation;
 using HealthCare.Shared.Exceptions;
 using HealthCare.Shared.Wrappers;
 
 namespace HeathCare.Api.Middlewares;
 
-public class ExceptionMiddleware(RequestDelegate next)
+public class ExceptionMiddleware(RequestDelegate next, ILogger<ExceptionMiddleware> logger)
 {
-
     public async Task InvokeAsync(HttpContext context)
     {
         try
         {
             await next(context);
+        }
+        catch (ValidationException ex)
+        {
+            var errors = ex.Errors.Select(e => e.ErrorMessage).ToList();
+            await WriteResponse(context, 400,
+                ApiResponse<object>.Error("Los datos enviados no son válidos.", errors));
         }
         catch (AppExceptions.NotFoundException ex)
         {
@@ -39,17 +45,17 @@ public class ExceptionMiddleware(RequestDelegate next)
         }
         catch (Exception ex)
         {
+            logger.LogError(ex, "Unhandled exception on {Method} {Path}",
+                context.Request.Method, context.Request.Path);
             await WriteResponse(context, 500,
-                ApiResponse<object>.Error(ExceptionMessage.INTERNAL_ERROR,
-                    new List<string> { ex.Message }));
+                ApiResponse<object>.Error(ExceptionMessage.INTERNAL_ERROR));
         }
     }
-    
+
     private static async Task WriteResponse<T>(HttpContext context, int statusCode, ApiResponse<T> response)
     {
-        context.Response.StatusCode  = statusCode;
+        context.Response.StatusCode = statusCode;
         context.Response.ContentType = "application/json";
         await context.Response.WriteAsJsonAsync(response);
     }
-    
 }

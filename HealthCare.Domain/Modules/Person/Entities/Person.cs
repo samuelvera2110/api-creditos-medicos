@@ -30,4 +30,19 @@ public class Person
         Email = email;
         PhoneNumber = phoneNumber;
     }
+
+    internal static Person Reconstitute(
+        int id, int documentTypeId, string documentNumber,
+        string firstName, string lastName, string email, bool isActive)
+    {
+        var person = new Person();
+        person.Id = id;
+        person.DocumentTypeId = documentTypeId;
+        person.DocumentNumber = documentNumber;
+        person.FirstName = firstName;
+        person.LastName = lastName;
+        person.Email = email;
+        person.IsActive = isActive;
+        return person;
+    }
 }

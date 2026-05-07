@@ -77,4 +77,37 @@ public class User
         IsActive = false;
         UpdatedAt = DateTime.UtcNow;
     }
+
+    internal void AddRole(Role.Entities.Role role) => _roles.Add(role);
+
+    internal static User Reconstitute(
+        int id, int personId, string username,
+        byte[] passwordHash, byte[] passwordSalt,
+        int failedLoginAttempts, DateTime? lockoutEndUtc,
+        DateTime? lastLoginAt, string? lastLoginIp,
+        DateTime? passwordChangedAt, bool mustChangePassword,
+        bool isActive, DateTime createdAt, int? createdBy,
+        DateTime? updatedAt, int? updatedBy)
+    {
+        var user = new User();
+        user.Id = id;
+        user.PersonId = personId;
+        user.Username = username;
+        user.PasswordHash = passwordHash;
+        user.PasswordSalt = passwordSalt;
+        user.FailedLoginAttempts = failedLoginAttempts;
+        user.LockoutEndUtc = lockoutEndUtc;
+        user.LastLoginAt = lastLoginAt;
+        user.LastLoginIp = lastLoginIp;
+        user.PasswordChangedAt = passwordChangedAt;
+        user.MustChangePassword = mustChangePassword;
+        user.IsActive = isActive;
+        user.CreatedAt = createdAt;
+        user.CreatedBy = createdBy;
+        user.UpdatedAt = updatedAt;
+        user.UpdatedBy = updatedBy;
+        return user;
+    }
+
+    internal void SetPerson(Person.Entities.Person person) => Person = person;
 }

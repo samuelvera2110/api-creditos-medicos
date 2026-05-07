@@ -4,23 +4,6 @@ using Scalar.AspNetCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
-builder.Services.AddCors(options =>
-    {
-        options.AddPolicy("AllowFrontend", policy =>
-        {
-            policy.WithOrigins("http://localhost:4200")
-                .AllowAnyHeader()
-                .AllowAnyMethod();
-
-        });
-
-
-    }
-
-);
-
-
-
 builder.Services.AddCore(builder.Configuration);
 
 var app = builder.Build();
@@ -29,6 +12,7 @@ var app = builder.Build();
 
 
 app.UseMiddleware<ExceptionMiddleware>();
+app.UseCors("AllowFrontend");
 app.UseHttpsRedirection();
 
 if (app.Environment.IsDevelopment())
@@ -42,8 +26,6 @@ if (app.Environment.IsDevelopment())
     });
 }
 
-
-app.UseCors(("AllowFrontend"));
 app.UseAuthentication();
 app.UseAuthorization();
 app.MapControllers();

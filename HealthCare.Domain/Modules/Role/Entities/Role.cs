@@ -26,4 +26,14 @@ public class Role
     {
         IsActive = status;
     }
+
+    internal static Role Reconstitute(int id, string name, string? description, bool isActive)
+    {
+        var role = new Role();
+        role.Id = id;
+        role.Name = name;
+        role.Description = description;
+        role.IsActive = isActive;
+        return role;
+    }
 }

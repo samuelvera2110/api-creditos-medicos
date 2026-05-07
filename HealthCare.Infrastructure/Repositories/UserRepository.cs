@@ -1,7 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using HealthCare.Domain.Modules.Users;
 using HealthCare.Infrastructure.Persistence.Context;
-using System.Reflection;
 
 using DomainUser = HealthCare.Domain.Modules.Users.Entities.User;
 using DomainRole = HealthCare.Domain.Modules.Role.Entities.Role;
@@ -68,10 +67,10 @@ public class UserRepository(HeathCareDbContext context) : IUserRepository
         await context.SaveChangesAsync();
     }
 
-    public void Update(DomainUser domainUser)
+    public async Task UpdateAsync(DomainUser domainUser)
     {
-        var entity = context.Users.FirstOrDefault(u => u.Userid == domainUser.Id);
-        
+        var entity = await context.Users.FirstOrDefaultAsync(u => u.Userid == domainUser.Id);
+
         if (entity != null)
         {
             entity.Failedloginattempts = domainUser.FailedLoginAttempts;
@@ -86,63 +85,62 @@ public class UserRepository(HeathCareDbContext context) : IUserRepository
             entity.Updatedat = domainUser.UpdatedAt;
 
             context.Users.Update(entity);
+            await context.SaveChangesAsync();
         }
     }
 
-    
-    private DomainUser MapToDomain(InfraUser infraUser)
+    private static DomainUser MapToDomain(InfraUser infraUser)
     {
-        var domainUser = new DomainUser(
-            infraUser.Personid,
-            infraUser.Username,
-            infraUser.Passwordhash,
-            infraUser.Passwordsalt
+        var domainUser = DomainUser.Reconstitute(
+            id: infraUser.Userid,
+            personId: infraUser.Personid,
+            username: infraUser.Username,
+            passwordHash: infraUser.Passwordhash,
+            passwordSalt: infraUser.Passwordsalt,
+            failedLoginAttempts: infraUser.Failedloginattempts,
+            lockoutEndUtc: infraUser.Lockoutendutc,
+            lastLoginAt: infraUser.Lastloginat,
+            lastLoginIp: infraUser.Lastloginip,
+            passwordChangedAt: infraUser.Passwordchangedat,
+            mustChangePassword: infraUser.Mustchangepassword,
+            isActive: infraUser.Isactive,
+            createdAt: infraUser.Createdat,
+            createdBy: infraUser.Createdby,
+            updatedAt: infraUser.Updatedat,
+            updatedBy: infraUser.Updatedby
         );
-
-        SetPrivatePropertyValue(domainUser, "Id", infraUser.Userid);
-        SetPrivatePropertyValue(domainUser, "FailedLoginAttempts", infraUser.Failedloginattempts);
-        SetPrivatePropertyValue(domainUser, "LockoutEndUtc", infraUser.Lockoutendutc);
-        SetPrivatePropertyValue(domainUser, "IsActive", infraUser.Isactive);
 
         if (infraUser.Person != null)
         {
-            var domainPerson = new DomainPerson(
-                infraUser.Person.Documenttypeid,
-                infraUser.Person.Documentnumber,
-                infraUser.Person.Firstname,
-                infraUser.Person.Lastname,
-                infraUser.Person.Email
+            var domainPerson = DomainPerson.Reconstitute(
+                id: infraUser.Person.Personid,
+                documentTypeId: infraUser.Person.Documenttypeid,
+                documentNumber: infraUser.Person.Documentnumber,
+                firstName: infraUser.Person.Firstname,
+                lastName: infraUser.Person.Lastname,
+                email: infraUser.Person.Email,
+                isActive: infraUser.Person.Isactive
             );
-            SetPrivatePropertyValue(domainPerson, "Id", infraUser.Person.Personid);
-            SetPrivatePropertyValue(domainUser, "Person", domainPerson);
+            domainUser.SetPerson(domainPerson);
         }
 
-        // 4. Mapear los Roles usando Reflection para agregarlos a la lista privada (_roles)
-        if (infraUser.UserroleUsers != null && infraUser.UserroleUsers.Any())
+        if (infraUser.UserroleUsers != null)
         {
-            var rolesField = typeof(DomainUser).GetField("_roles", BindingFlags.NonPublic | BindingFlags.Instance);
-            var rolesList = (List<DomainRole>?)rolesField?.GetValue(domainUser);
-
             foreach (var userRole in infraUser.UserroleUsers)
             {
                 if (userRole.Role != null)
                 {
-                    var domainRole = new DomainRole(userRole.Role.Name, userRole.Role.Description);
-                    SetPrivatePropertyValue(domainRole, "Id", userRole.Role.Roleid);
-                    rolesList?.Add(domainRole);
+                    var domainRole = DomainRole.Reconstitute(
+                        id: userRole.Role.Roleid,
+                        name: userRole.Role.Name,
+                        description: userRole.Role.Description,
+                        isActive: userRole.Role.Isactive
+                    );
+                    domainUser.AddRole(domainRole);
                 }
             }
         }
 
         return domainUser;
-    }
-
-    private void SetPrivatePropertyValue<T>(T obj, string propertyName, object? value)
-    {
-        var property = typeof(T).GetProperty(propertyName, BindingFlags.Public | BindingFlags.Instance);
-        if (property != null && property.CanWrite)
-        {
-            property.SetValue(obj, value, null);
-        }
     }
 }

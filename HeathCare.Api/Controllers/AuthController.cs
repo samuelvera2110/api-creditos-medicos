@@ -18,10 +18,11 @@ public class AuthController(IAuthService authService) : ControllerBase
     [ProducesResponseType(typeof(ApiResponse<object>), StatusCodes.Status500InternalServerError)]
     public async Task<IActionResult> Login([FromBody] LoginRequest request)
     {
-        var result = await authService.LoginAsync(request);
+        var ip = HttpContext.Connection.RemoteIpAddress?.ToString() ?? "unknown";
+        var result = await authService.LoginAsync(request with { IpAddress = ip });
 
         var response = ApiResponse<AuthResponse>.Ok(result, "Sesión iniciada correctamente.");
-        
+
         return Ok(response);
     }
 }

@@ -14,7 +14,7 @@ public static class ConfigurationConstants
     public const string JWT_PRIVATE_KEY = "Jwt:PrivateKey";
     public const string JWT_AUDIENCE = "Jwt:Audience";
     public const string JWT_ISSUER = "Jwt:Issuer";
-    public const string JWT_EXPIRATION_IN_MINUTES_MIN = "Jwt:ExpirationInMinutesMin";
+    public const string JWT_EXPIRATION_MINUTES = "Jwt:ExpirationMinutes";
     public const string JWT_EXPIRATION_IN_MINUTES_MAX = "Jwt:ExpirationInMinutesMax";
 
     // Auth
