@@ -8,7 +8,5 @@ public sealed record CreateUserRequest(
     string    Email,
     string?   PhoneNumber,
     DateTime? BirthDate,
-    char?     Gender,
-    string    Username,
-    string    Password
+    char?     Gender
 );

@@ -11,10 +11,12 @@ using HealthCare.Infrastructure.Repositories;
 using HealthCare.Infrastructure.Security;
 using HealthCare.Shared.Behaviours;
 using HealthCare.Shared.Constants;
+using HealthCare.Shared.Wrappers;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using MediatR;
+using Microsoft.AspNetCore.Mvc;
 
 namespace HeathCare.Api.Extensions;
 
@@ -32,9 +34,31 @@ public static class ServiceCollectionExtension
         services.AddControllers();
         services.AddFluentValidationAutoValidation();
         services.AddValidatorsFromAssemblyContaining<LoginRequestValidator>();
+        services.ConfigureApiBehavior();
+    }
+    
+    private static void ConfigureApiBehavior(this IServiceCollection services)
+    {
+        services.Configure<ApiBehaviorOptions>(options =>
+        {
+            options.InvalidModelStateResponseFactory = context =>
+            {
+                var errors = context.ModelState
+                    .Where(e => e.Value?.Errors.Count > 0)
+                    .SelectMany(e => e.Value!.Errors)
+                    .Select(e => e.ErrorMessage)
+                    .ToList();
+
+                var response = ApiResponse<object>.Error(
+                    "Errores de validación.",
+                    errors
+                );
+
+                return new BadRequestObjectResult(response);
+            };
+        });
     }
 
-    // ─── MediatR + Pipeline ───────────────────────────────────────────────
     private static void AddMediatR(this IServiceCollection services)
     {
         services.AddMediatR(cfg =>
@@ -47,7 +71,6 @@ public static class ServiceCollectionExtension
             typeof(ValidationBehavior<,>));
     }
 
-    // ─── Base de datos ────────────────────────────────────────────────────
     public static void AddDatabase(this IServiceCollection services, IConfiguration configuration)
     {
         var connectionString =
@@ -56,11 +79,12 @@ public static class ServiceCollectionExtension
             ?? throw new Exception(
                 $"No se encontró la configuración: {ConfigurationConstants.CONNECTION_STRING_DATABASE}");
 
+        AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehavior", true);
+
         services.AddDbContext<HeathCareDbContext>(options =>
             options.UseNpgsql(connectionString));
     }
 
-    // ─── JWT + Auth ───────────────────────────────────────────────────────
     private static void AddSecurity(this IServiceCollection services, IConfiguration configuration)
     {
         services.Configure<JwtSettings>(configuration.GetSection("Jwt"));

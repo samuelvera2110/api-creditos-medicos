@@ -54,6 +54,7 @@ public sealed class UsersController(IMediator mediator) : ControllerBase
     }
 
     [HttpPost]
+    [AllowAnonymous]
     [EndpointSummary("Crear usuario")]
     [EndpointDescription("Crea la persona y la cuenta de usuario en una sola operación. La contraseña es hasheada con PBKDF2-SHA512.")]
     [ProducesResponseType(typeof(ApiResponse<UserDto>), StatusCodes.Status201Created)]
@@ -74,8 +75,6 @@ public sealed class UsersController(IMediator mediator) : ControllerBase
                 BirthDate:      request.BirthDate,
                 Gender:         request.Gender,
 
-                Username:       request.Username,
-                Password:       request.Password,
                 CreatedBy:      GetCurrentUserId() ?? 0
             ), ct);
 

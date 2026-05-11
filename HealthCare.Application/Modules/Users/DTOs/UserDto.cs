@@ -10,5 +10,6 @@ public sealed record UserDto(
     bool     MustChangePassword,
     bool     IsActive,
     DateTime CreatedAt,
-    IEnumerable<string> Roles
+    IEnumerable<string> Roles,
+    string?  TemporaryPassword = null 
 );

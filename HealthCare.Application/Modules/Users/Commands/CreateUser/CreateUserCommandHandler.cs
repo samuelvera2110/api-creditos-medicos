@@ -1,7 +1,7 @@
 using HealthCare.Application.Modules.Auth.Security.Interfaces;
 using HealthCare.Application.Modules.Users.DTOs;
-using HealthCare.Domain.Modules.Person.Entities;
 using HealthCare.Domain.Modules.Person;
+using HealthCare.Domain.Modules.Person.Entities;
 using HealthCare.Domain.Modules.Users;
 using HealthCare.Domain.Modules.Users.Entities;
 using MediatR;
@@ -16,14 +16,15 @@ public sealed class CreateUserCommandHandler(
 {
     public async Task<UserDto> Handle(CreateUserCommand request, CancellationToken ct)
     {
-        if (await userRepository.ExistsByUsernameAsync(request.Username))
-            throw new InvalidOperationException($"El username '{request.Username}' ya está en uso.");
-
         if (await personRepository.ExistsByEmailAsync(request.Email))
             throw new InvalidOperationException($"El email '{request.Email}' ya está registrado.");
 
         if (await personRepository.ExistsByDocumentAsync(request.DocumentTypeId, request.DocumentNumber))
             throw new InvalidOperationException("El número de documento ya está registrado.");
+
+        var username = await GenerateUniqueUsernameAsync(request.FirstName, request.LastName);
+
+        var tempPassword = GenerateTemporaryPassword();
 
         var person = new Person(
             request.DocumentTypeId,
@@ -33,31 +34,89 @@ public sealed class CreateUserCommandHandler(
             request.Email
         );
 
-        person.UpdateContactInfo(request.Email, request.PhoneNumber);
+        person.Update(
+            request.FirstName,
+            request.LastName,
+            request.Email,
+            request.PhoneNumber,
+            request.BirthDate,
+            request.Gender
+        );
 
         await personRepository.AddAsync(person);
 
-        // Declaración inline de las variables out
-        passwordHasher.CreatePasswordHash(request.Password, out byte[] hash, out byte[] salt);
-
-        var user = new User(person.Id, request.Username, hash, salt);
+        passwordHasher.CreatePasswordHash(tempPassword, out byte[] hash, out byte[] salt);
+        var user = new User(person.Id, username, hash, salt);
 
         await userRepository.AddAsync(user);
 
-        var created = await userRepository.GetByUsernameAsync(request.Username)
-            ?? throw new InvalidOperationException("Error al crear el usuario.");
+        var created = await userRepository.GetByUsernameAsync(username)
+                      ?? throw new InvalidOperationException("Error al crear el usuario.");
 
         return new UserDto(
             created.Id,
             created.PersonId,
             created.Username,
-            created.Person?.FirstName ?? string.Empty,
-            created.Person?.LastName  ?? string.Empty,
-            created.Person?.Email     ?? string.Empty,
+            person.FirstName,
+            person.LastName,
+            person.Email,
             created.MustChangePassword,
             created.IsActive,
             created.CreatedAt,
-            created.Roles.Select(r => r.Name)
+            created.Roles.Select(r => r.Name),
+            TemporaryPassword: tempPassword
+        );
+    }
+
+    private async Task<string> GenerateUniqueUsernameAsync(string firstName, string lastName)
+    {
+        var first = Normalize(firstName.Split(' ')[0]);
+        var last  = Normalize(lastName.Split(' ')[0]);
+        var baseUsername = $"{first}.{last}";
+
+        if (!await userRepository.ExistsByUsernameAsync(baseUsername))
+            return baseUsername;
+
+        var counter = 2;
+        string candidate;
+        do
+        {
+            candidate = $"{baseUsername}{counter}";
+            counter++;
+        }
+        while (await userRepository.ExistsByUsernameAsync(candidate));
+
+        return candidate;
+    }
+
+    private static string Normalize(string input) =>
+        string.Concat(
+            input.Normalize(System.Text.NormalizationForm.FormD)
+                 .Where(c => System.Globalization.CharUnicodeInfo.GetUnicodeCategory(c)
+                              != System.Globalization.UnicodeCategory.NonSpacingMark)
+        ).ToLowerInvariant();
+
+    private static string GenerateTemporaryPassword()
+    {
+        const string upper   = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+        const string lower   = "abcdefghijklmnopqrstuvwxyz";
+        const string digits  = "0123456789";
+        const string special = "!@#$%&*";
+        const string all     = upper + lower + digits + special;
+
+        var chars = new char[12];
+
+        chars[0] = upper  [System.Security.Cryptography.RandomNumberGenerator.GetInt32(upper.Length)];
+        chars[1] = digits [System.Security.Cryptography.RandomNumberGenerator.GetInt32(digits.Length)];
+        chars[2] = special[System.Security.Cryptography.RandomNumberGenerator.GetInt32(special.Length)];
+        chars[3] = lower  [System.Security.Cryptography.RandomNumberGenerator.GetInt32(lower.Length)];
+
+        for (int i = 4; i < 12; i++)
+            chars[i] = all[System.Security.Cryptography.RandomNumberGenerator.GetInt32(all.Length)];
+
+        return new string(
+            chars.OrderBy(_ => System.Security.Cryptography.RandomNumberGenerator.GetInt32(100))
+                 .ToArray()
         );
     }
 }
