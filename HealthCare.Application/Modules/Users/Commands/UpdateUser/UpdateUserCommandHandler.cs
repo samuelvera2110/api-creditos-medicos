@@ -1,35 +1,39 @@
-using HealthCare.Application.Modules.Users.DTOs;
-using HealthCare.Domain.Modules.Users;
-using MediatR;
+using FluentValidation;
 
-namespace HealthCare.Application.Modules.Users.Commands.UpdateUserCommand;
+namespace HealthCare.Application.Modules.Users.Commands.UpdateUser;
 
-public sealed class UpdateUserCommandHandler(
-    IUserRepository userRepository
-) : IRequestHandler<UpdateUserCommand, UserDto>
+public sealed class UpdateUserCommandValidator : AbstractValidator<UpdateUser.UpdateUserCommand>
 {
-    public async Task<UserDto> Handle(UpdateUserCommand request, CancellationToken ct)
+    public UpdateUserCommandValidator()
     {
-        var user = await userRepository.GetByIdAsync(request.UserId)
-                   ?? throw new KeyNotFoundException($"User {request.UserId} not found.");
+        RuleFor(x => x.UserId)
+            .GreaterThan(0);
 
-        if (user.Username != request.Username &&
-            await userRepository.ExistsByUsernameAsync(request.Username))
-            throw new InvalidOperationException($"Username '{request.Username}' is already taken.");
+        RuleFor(x => x.Username)
+            .NotEmpty()
+            .MaximumLength(50)
+            .Matches(@"^[a-zA-Z0-9._-]+$")
+            .WithMessage("Username solo puede contener letras, números, '.', '_' y '-'.");
 
-        user.UpdateUsername(request.Username, request.UpdatedBy);
+        RuleFor(x => x.FirstName)
+            .NotEmpty()
+            .MaximumLength(80);
 
-        await userRepository.UpdateAsync(user);
+        RuleFor(x => x.LastName)
+            .NotEmpty()
+            .MaximumLength(80);
 
-        return new UserDto(
-            user.Id, user.PersonId, user.Username,
-            user.Person?.FirstName ?? string.Empty,
-            user.Person?.LastName  ?? string.Empty,
-            user.Person?.Email     ?? string.Empty,
-            user.MustChangePassword,
-            user.IsActive,
-            user.CreatedAt,
-            user.Roles.Select(r => r.Name)
-        );
+        RuleFor(x => x.Email)
+            .NotEmpty()
+            .EmailAddress()
+            .MaximumLength(150);
+
+        RuleFor(x => x.PhoneNumber)
+            .MaximumLength(25)
+            .When(x => x.PhoneNumber is not null);
+
+        RuleFor(x => x.Gender)
+            .Must(g => g is null || g == 'M' || g == 'F' || g == 'O')
+            .WithMessage("El género debe ser M, F u O.");
     }
 }

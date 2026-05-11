@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "7EL5xbLW8pc=",
+  "dgSpecHash": "MHl308TmfKI=",
   "success": true,
   "projectFilePath": "/Users/ingcampoverde/RiderProjects/api-creditos-medicos/HeathCare.Api/HeathCare.Api.csproj",
   "expectedPackageFiles": [
@@ -31,7 +31,7 @@
     "/Users/ingcampoverde/.nuget/packages/microsoft.extensions.configuration.abstractions/9.0.4/microsoft.extensions.configuration.abstractions.9.0.4.nupkg.sha512",
     "/Users/ingcampoverde/.nuget/packages/microsoft.extensions.dependencyinjection/9.0.4/microsoft.extensions.dependencyinjection.9.0.4.nupkg.sha512",
     "/Users/ingcampoverde/.nuget/packages/microsoft.extensions.dependencyinjection.abstractions/10.0.7/microsoft.extensions.dependencyinjection.abstractions.10.0.7.nupkg.sha512",
-    "/Users/ingcampoverde/.nuget/packages/microsoft.extensions.dependencymodel/9.0.4/microsoft.extensions.dependencymodel.9.0.4.nupkg.sha512",
+    "/Users/ingcampoverde/.nuget/packages/microsoft.extensions.dependencymodel/10.0.0/microsoft.extensions.dependencymodel.10.0.0.nupkg.sha512",
     "/Users/ingcampoverde/.nuget/packages/microsoft.extensions.logging/9.0.4/microsoft.extensions.logging.9.0.4.nupkg.sha512",
     "/Users/ingcampoverde/.nuget/packages/microsoft.extensions.logging.abstractions/9.0.4/microsoft.extensions.logging.abstractions.9.0.4.nupkg.sha512",
     "/Users/ingcampoverde/.nuget/packages/microsoft.extensions.options/10.0.7/microsoft.extensions.options.10.0.7.nupkg.sha512",
@@ -47,6 +47,7 @@
     "/Users/ingcampoverde/.nuget/packages/npgsql/9.0.3/npgsql.9.0.3.nupkg.sha512",
     "/Users/ingcampoverde/.nuget/packages/npgsql.entityframeworkcore.postgresql/9.0.4/npgsql.entityframeworkcore.postgresql.9.0.4.nupkg.sha512",
     "/Users/ingcampoverde/.nuget/packages/scalar.aspnetcore/2.14.4/scalar.aspnetcore.2.14.4.nupkg.sha512",
+    "/Users/ingcampoverde/.nuget/packages/scrutor/7.0.0/scrutor.7.0.0.nupkg.sha512",
     "/Users/ingcampoverde/.nuget/packages/system.codedom/6.0.0/system.codedom.6.0.0.nupkg.sha512",
     "/Users/ingcampoverde/.nuget/packages/system.collections.immutable/7.0.0/system.collections.immutable.7.0.0.nupkg.sha512",
     "/Users/ingcampoverde/.nuget/packages/system.composition/7.0.0/system.composition.7.0.0.nupkg.sha512",
@@ -56,10 +57,11 @@
     "/Users/ingcampoverde/.nuget/packages/system.composition.runtime/7.0.0/system.composition.runtime.7.0.0.nupkg.sha512",
     "/Users/ingcampoverde/.nuget/packages/system.composition.typedparts/7.0.0/system.composition.typedparts.7.0.0.nupkg.sha512",
     "/Users/ingcampoverde/.nuget/packages/system.identitymodel.tokens.jwt/8.18.0/system.identitymodel.tokens.jwt.8.18.0.nupkg.sha512",
-    "/Users/ingcampoverde/.nuget/packages/system.io.pipelines/7.0.0/system.io.pipelines.7.0.0.nupkg.sha512",
+    "/Users/ingcampoverde/.nuget/packages/system.io.pipelines/10.0.0/system.io.pipelines.10.0.0.nupkg.sha512",
     "/Users/ingcampoverde/.nuget/packages/system.reflection.metadata/7.0.0/system.reflection.metadata.7.0.0.nupkg.sha512",
     "/Users/ingcampoverde/.nuget/packages/system.runtime.compilerservices.unsafe/6.0.0/system.runtime.compilerservices.unsafe.6.0.0.nupkg.sha512",
-    "/Users/ingcampoverde/.nuget/packages/system.text.json/9.0.4/system.text.json.9.0.4.nupkg.sha512",
+    "/Users/ingcampoverde/.nuget/packages/system.text.encodings.web/10.0.0/system.text.encodings.web.10.0.0.nupkg.sha512",
+    "/Users/ingcampoverde/.nuget/packages/system.text.json/10.0.0/system.text.json.10.0.0.nupkg.sha512",
     "/Users/ingcampoverde/.nuget/packages/system.threading.channels/7.0.0/system.threading.channels.7.0.0.nupkg.sha512"
   ],
   "logs": []

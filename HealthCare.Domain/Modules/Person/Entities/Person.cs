@@ -14,6 +14,8 @@ public class Person
     public bool IsActive { get; private set; }
 
     protected Person() { } 
+    
+    internal void SetId(int id) => Id = id;
 
     public Person(int documentTypeId, string documentNumber, string firstName, string lastName, string email)
     {
@@ -29,6 +31,22 @@ public class Person
     {
         Email = email;
         PhoneNumber = phoneNumber;
+    }
+    
+    public void Update(
+        string    firstName,
+        string    lastName,
+        string    email,
+        string?   phoneNumber,
+        DateTime? birthDate,
+        char?     gender)
+    {
+        FirstName   = firstName;
+        LastName    = lastName;
+        Email       = email;
+        PhoneNumber = phoneNumber;
+        BirthDate   = birthDate;
+        Gender      = gender;
     }
 
     internal static Person Reconstitute(

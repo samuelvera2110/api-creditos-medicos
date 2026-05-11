@@ -2,7 +2,7 @@ using System.Security.Claims;
 using HealthCare.Application.Modules.Users.Commands.ActivateUser;
 using HealthCare.Application.Modules.Users.Commands.CreateUser;
 using HealthCare.Application.Modules.Users.Commands.DeactivateUser;
-using HealthCare.Application.Modules.Users.Commands.UpdateUserCommand;
+using HealthCare.Application.Modules.Users.Commands.UpdateUser;
 using HealthCare.Application.Modules.Users.DTOs;
 using HealthCare.Application.Modules.Users.DTOs.Requests;
 using HealthCare.Application.Modules.Users.Queries.GetAllUsers;
@@ -55,7 +55,7 @@ public sealed class UsersController(IMediator mediator) : ControllerBase
 
     [HttpPost]
     [EndpointSummary("Crear usuario")]
-    [EndpointDescription("Crea una cuenta de usuario vinculada a una persona existente. La contraseña es hasheada con PBKDF2-SHA512.")]
+    [EndpointDescription("Crea la persona y la cuenta de usuario en una sola operación. La contraseña es hasheada con PBKDF2-SHA512.")]
     [ProducesResponseType(typeof(ApiResponse<UserDto>), StatusCodes.Status201Created)]
     [ProducesResponseType(typeof(ApiResponse<object>),  StatusCodes.Status409Conflict)]
     public async Task<IActionResult> Create(
@@ -65,10 +65,18 @@ public sealed class UsersController(IMediator mediator) : ControllerBase
         try
         {
             var dto = await mediator.Send(new CreateUserCommand(
-                request.PersonId,
-                request.Username,
-                request.Password,
-                CreatedBy: GetCurrentUserId() ?? 0
+                DocumentTypeId: request.DocumentTypeId,
+                DocumentNumber: request.DocumentNumber,
+                FirstName:      request.FirstName,
+                LastName:       request.LastName,
+                Email:          request.Email,
+                PhoneNumber:    request.PhoneNumber,
+                BirthDate:      request.BirthDate,
+                Gender:         request.Gender,
+
+                Username:       request.Username,
+                Password:       request.Password,
+                CreatedBy:      GetCurrentUserId() ?? 0
             ), ct);
 
             return CreatedAtAction(
@@ -83,10 +91,9 @@ public sealed class UsersController(IMediator mediator) : ControllerBase
         }
     }
 
-    // ─── PUT api/users/{id} ───────────────────────────────────────────────
     [HttpPut("{id:int}")]
     [EndpointSummary("Actualizar usuario")]
-    [EndpointDescription("Actualiza el nombre de usuario. Valida que el nuevo username no esté en uso.")]
+    [EndpointDescription("Actualiza el username y los datos personales del usuario en una sola operación.")]
     [ProducesResponseType(typeof(ApiResponse<UserDto>), StatusCodes.Status200OK)]
     [ProducesResponseType(typeof(ApiResponse<object>),  StatusCodes.Status404NotFound)]
     [ProducesResponseType(typeof(ApiResponse<object>),  StatusCodes.Status409Conflict)]
@@ -98,9 +105,15 @@ public sealed class UsersController(IMediator mediator) : ControllerBase
         try
         {
             var dto = await mediator.Send(new UpdateUserCommand(
-                id,
-                request.Username,
-                UpdatedBy: GetCurrentUserId() ?? 0
+                UserId:      id,
+                Username:    request.Username,
+                FirstName:   request.FirstName,
+                LastName:    request.LastName,
+                Email:       request.Email,
+                PhoneNumber: request.PhoneNumber,
+                BirthDate:   request.BirthDate,
+                Gender:      request.Gender,
+                UpdatedBy:   GetCurrentUserId() ?? 0
             ), ct);
 
             return Ok(ApiResponse<UserDto>.Ok(dto, "Usuario actualizado correctamente."));

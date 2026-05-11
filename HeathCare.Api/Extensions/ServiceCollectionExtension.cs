@@ -11,12 +11,11 @@ using HealthCare.Infrastructure.Repositories;
 using HealthCare.Infrastructure.Security;
 using HealthCare.Shared.Behaviours;
 using HealthCare.Shared.Constants;
-using HeathCare.Api.Middlewares;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
-
 using MediatR;
+
 namespace HeathCare.Api.Extensions;
 
 public static class ServiceCollectionExtension
@@ -35,6 +34,7 @@ public static class ServiceCollectionExtension
         services.AddValidatorsFromAssemblyContaining<LoginRequestValidator>();
     }
 
+    // ─── MediatR + Pipeline ───────────────────────────────────────────────
     private static void AddMediatR(this IServiceCollection services)
     {
         services.AddMediatR(cfg =>
@@ -46,24 +46,29 @@ public static class ServiceCollectionExtension
             typeof(IPipelineBehavior<,>),
             typeof(ValidationBehavior<,>));
     }
+
+    // ─── Base de datos ────────────────────────────────────────────────────
     public static void AddDatabase(this IServiceCollection services, IConfiguration configuration)
     {
-        var connectionString = Environment.GetEnvironmentVariable("CONNECTION_STRING_DATABASE")
-                               ?? configuration[ConfigurationConstants.CONNECTION_STRING_DATABASE]
-                               ?? throw new Exception($"No se encontró la configuración: {ConfigurationConstants.CONNECTION_STRING_DATABASE}");
+        var connectionString =
+            Environment.GetEnvironmentVariable("CONNECTION_STRING_DATABASE")
+            ?? configuration[ConfigurationConstants.CONNECTION_STRING_DATABASE]
+            ?? throw new Exception(
+                $"No se encontró la configuración: {ConfigurationConstants.CONNECTION_STRING_DATABASE}");
 
         services.AddDbContext<HeathCareDbContext>(options =>
             options.UseNpgsql(connectionString));
     }
 
+    // ─── JWT + Auth ───────────────────────────────────────────────────────
     private static void AddSecurity(this IServiceCollection services, IConfiguration configuration)
     {
         services.Configure<JwtSettings>(configuration.GetSection("Jwt"));
-        services.AddScoped<IPasswordHasher, PasswordHasher>();
         services.AddScoped<IJwtProvider, JwtProvider>();
 
         var jwtSettings = configuration.GetSection("Jwt").Get<JwtSettings>()
-            ?? throw new InvalidOperationException("La sección 'Jwt' no está configurada en appsettings.");
+            ?? throw new InvalidOperationException(
+                "La sección 'Jwt' no está configurada en appsettings.");
 
         services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
             .AddJwtBearer(options =>
@@ -71,13 +76,14 @@ public static class ServiceCollectionExtension
                 options.TokenValidationParameters = new TokenValidationParameters
                 {
                     ValidateIssuerSigningKey = true,
-                    IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtSettings.PrivateKey)),
-                    ValidateIssuer = true,
-                    ValidIssuer = jwtSettings.Issuer,
-                    ValidateAudience = true,
-                    ValidAudience = jwtSettings.Audience,
-                    ValidateLifetime = true,
-                    ClockSkew = TimeSpan.Zero
+                    IssuerSigningKey         = new SymmetricSecurityKey(
+                                                Encoding.UTF8.GetBytes(jwtSettings.PrivateKey)),
+                    ValidateIssuer    = true,
+                    ValidIssuer       = jwtSettings.Issuer,
+                    ValidateAudience  = true,
+                    ValidAudience     = jwtSettings.Audience,
+                    ValidateLifetime  = true,
+                    ClockSkew         = TimeSpan.Zero
                 };
             });
 
@@ -86,17 +92,37 @@ public static class ServiceCollectionExtension
 
     private static void AddRepositories(this IServiceCollection services)
     {
-        services.AddScoped<IUserRepository, UserRepository>();
+        services.Scan(scan => scan
+            .FromAssemblyOf<UserRepository>()        
+                .AddClasses(classes => classes
+                    .InNamespaces("HealthCare.Infrastructure.Repositories"))
+                .AsImplementedInterfaces()         
+                .WithScopedLifetime()           
+        );
     }
 
     private static void AddApplicationServices(this IServiceCollection services)
     {
-        services.AddScoped<IAuthService, AuthService>();
+        services.Scan(scan => scan
+            .FromAssemblyOf<AuthService>()             
+            
+                .AddClasses(classes => classes
+                    .InNamespaces("HealthCare.Application.Modules")
+                    .Where(t => t.Name.EndsWith("Service")))
+                .AsImplementedInterfaces()             
+                .WithScopedLifetime()
+        );
+
+       
+        services.AddScoped<IPasswordHasher, PasswordHasher>();
     }
 
+    
     private static void AddCorsPolicy(this IServiceCollection services, IConfiguration configuration)
     {
-        var allowedOrigins = configuration.GetSection("Cors:AllowedOrigins").Get<string[]>() ?? [];
+        var allowedOrigins = configuration
+            .GetSection("Cors:AllowedOrigins")
+            .Get<string[]>() ?? [];
 
         services.AddCors(options =>
         {
@@ -107,8 +133,9 @@ public static class ServiceCollectionExtension
                 else
                     policy.SetIsOriginAllowed(_ => false);
 
-                policy.WithHeaders("Content-Type", "Authorization")
-                      .WithMethods("GET", "POST", "PUT", "PATCH", "DELETE");
+                policy
+                    .WithHeaders("Content-Type", "Authorization")
+                    .WithMethods("GET", "POST", "PUT", "PATCH", "DELETE");
             });
         });
     }
