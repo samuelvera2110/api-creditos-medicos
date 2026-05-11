@@ -6,7 +6,6 @@ using MediatR;
 
 namespace HealthCare.Application.Modules.Users.Commands.CreateUser;
 
-
 public sealed class CreateUserCommandHandler(
     IUserRepository userRepository,
     IPasswordHasher passwordHasher
@@ -20,7 +19,7 @@ public sealed class CreateUserCommandHandler(
         if (await userRepository.ExistsByPersonIdAsync(request.PersonId))
             throw new InvalidOperationException("This person already has a user account.");
 
-        var (hash, salt) = passwordHasher.CreatePasswordHash(request.Password);
+        passwordHasher.CreatePasswordHash(request.Password, out byte[] hash, out byte[] salt);
 
         var user = new User(request.PersonId, request.Username, hash, salt);
 

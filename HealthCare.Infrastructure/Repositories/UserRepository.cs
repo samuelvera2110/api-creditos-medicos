@@ -39,6 +39,29 @@ public class UserRepository(HeathCareDbContext context) : IUserRepository
         return dbUser != null ? MapToDomain(dbUser) : null;
     }
 
+    public async Task<(IEnumerable<DomainUser> Items, int Total)> GetAllAsync(
+        int page, int pageSize, bool? isActive, CancellationToken ct = default)
+    {
+        var query = context.Users
+            .Include(u => u.Person)
+            .Include(u => u.ProfileUser)
+            .Include(u => u.UserroleUsers).ThenInclude(ur => ur.Role)
+            .AsNoTracking();
+
+        if (isActive.HasValue)
+            query = query.Where(u => u.Isactive == isActive.Value);
+
+        var total = await query.CountAsync(ct);
+
+        var items = await query
+            .OrderBy(u => u.Userid)
+            .Skip((page - 1) * pageSize)
+            .Take(pageSize)
+            .ToListAsync(ct);
+
+        return (items.Select(MapToDomain), total);
+    }
+
     public async Task<bool> ExistsByUsernameAsync(string username)
     {
         return await context.Users.AnyAsync(u => u.Username == username);

@@ -4,16 +4,19 @@ using FluentValidation.AspNetCore;
 using HealthCare.Application.Modules.Auth.Security.Interfaces;
 using HealthCare.Application.Modules.Auth.Services;
 using HealthCare.Application.Modules.Auth.Validators;
+using HealthCare.Application.Modules.Users.Commands.CreateUser;
 using HealthCare.Domain.Modules.Users;
 using HealthCare.Infrastructure.Persistence.Context;
 using HealthCare.Infrastructure.Repositories;
 using HealthCare.Infrastructure.Security;
+using HealthCare.Shared.Behaviours;
 using HealthCare.Shared.Constants;
 using HeathCare.Api.Middlewares;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 
+using MediatR;
 namespace HeathCare.Api.Extensions;
 
 public static class ServiceCollectionExtension
@@ -25,12 +28,24 @@ public static class ServiceCollectionExtension
         services.AddCorsPolicy(configuration);
         services.AddRepositories();
         services.AddApplicationServices();
+        services.AddMediatR();
         services.AddScalar();
         services.AddControllers();
         services.AddFluentValidationAutoValidation();
         services.AddValidatorsFromAssemblyContaining<LoginRequestValidator>();
     }
 
+    private static void AddMediatR(this IServiceCollection services)
+    {
+        services.AddMediatR(cfg =>
+        {
+            cfg.RegisterServicesFromAssemblyContaining<CreateUserCommandHandler>();
+        });
+
+        services.AddTransient(
+            typeof(IPipelineBehavior<,>),
+            typeof(ValidationBehavior<,>));
+    }
     public static void AddDatabase(this IServiceCollection services, IConfiguration configuration)
     {
         var connectionString = Environment.GetEnvironmentVariable("CONNECTION_STRING_DATABASE")

@@ -30,3 +30,4 @@
 /Users/ingcampoverde/RiderProjects/api-creditos-medicos/HealthCare.Shared/obj/Debug/net9.0/refint/HealthCare.Shared.dll
 /Users/ingcampoverde/RiderProjects/api-creditos-medicos/HealthCare.Shared/obj/Debug/net9.0/HealthCare.Shared.pdb
 /Users/ingcampoverde/RiderProjects/api-creditos-medicos/HealthCare.Shared/obj/Debug/net9.0/ref/HealthCare.Shared.dll
+/Users/ingcampoverde/RiderProjects/api-creditos-medicos/HealthCare.Shared/obj/Debug/net9.0/HealthCare.Shared.csproj.AssemblyReference.cache

@@ -232,6 +232,10 @@
       "HealthCare.Shared/1.0.0": {
         "type": "project",
         "framework": ".NETCoreApp,Version=v9.0",
+        "dependencies": {
+          "FluentValidation": "11.11.0",
+          "MediatR": "13.0.0"
+        },
         "compile": {
           "bin/placeholder/HealthCare.Shared.dll": {}
         },

@@ -40,6 +40,24 @@ public class User
         CreatedAt = DateTime.UtcNow;
     }
 
+    public void ChangePassword(byte[] newHash, byte[] newSalt)
+    {
+        PasswordHash       = newHash;
+        PasswordSalt       = newSalt;
+        PasswordChangedAt  = DateTime.UtcNow;
+        MustChangePassword = false;
+        UpdatedAt          = DateTime.UtcNow;
+    }
+
+    public void ResetPassword(byte[] tempHash, byte[] tempSalt, int updatedBy)
+    {
+        PasswordHash       = tempHash;
+        PasswordSalt       = tempSalt;
+        PasswordChangedAt  = null;
+        MustChangePassword = true;        
+        UpdatedAt          = DateTime.UtcNow;
+        UpdatedBy          = updatedBy;
+    }
 
     public void RecordSuccessfulLogin(string ipAddress)
     {
