@@ -72,12 +72,40 @@ public class User
         UpdatedAt = DateTime.UtcNow;
     }
 
-    public void Deactivate()
+    public void Deactivate(int updatedBy)
     {
-        IsActive = false;
+        IsActive  = false;
         UpdatedAt = DateTime.UtcNow;
+        UpdatedBy = updatedBy;
     }
+    
+    public void Activate(int updatedBy)
+    {
+        IsActive  = true;
+        UpdatedAt = DateTime.UtcNow;
+        UpdatedBy = updatedBy;
+    }
+    
+    public void UpdateUsername(string newUsername, int updatedBy)
+    {
+        if (string.IsNullOrWhiteSpace(newUsername))
+            throw new ArgumentException("Username cannot be empty.");
 
+        Username  = newUsername;
+        UpdatedAt = DateTime.UtcNow;
+        UpdatedBy = updatedBy;
+    }
+    
+    public void UpdatePassword(byte[] newHash, byte[] newSalt, int updatedBy)
+    {
+        PasswordHash      = newHash;
+        PasswordSalt      = newSalt;
+        PasswordChangedAt = DateTime.UtcNow;
+        MustChangePassword = false;
+        UpdatedAt          = DateTime.UtcNow;
+        UpdatedBy          = updatedBy;
+    }
+    
     internal void AddRole(Role.Entities.Role role) => _roles.Add(role);
 
     internal static User Reconstitute(

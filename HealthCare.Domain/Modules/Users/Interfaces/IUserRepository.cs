@@ -8,6 +8,10 @@ public interface IUserRepository
     
     Task<User?> GetByUsernameAsync(string username);
     
+    Task<(IEnumerable<User> Items, int Total)> GetAllAsync(
+        int page, int pageSize, bool? isActive, CancellationToken ct = default);
+
+    
     Task<bool> ExistsByUsernameAsync(string username);
     
     Task<bool> ExistsByPersonIdAsync(int personId);

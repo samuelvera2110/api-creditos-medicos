@@ -314,3 +314,9 @@
 /Users/ingcampoverde/RiderProjects/api-creditos-medicos/HeathCare.Api/bin/Debug/net9.0/Microsoft.IdentityModel.Logging.dll
 /Users/ingcampoverde/RiderProjects/api-creditos-medicos/HeathCare.Api/bin/Debug/net9.0/Microsoft.IdentityModel.Tokens.dll
 /Users/ingcampoverde/RiderProjects/api-creditos-medicos/HeathCare.Api/bin/Debug/net9.0/System.IdentityModel.Tokens.Jwt.dll
+/Users/ingcampoverde/RiderProjects/api-creditos-medicos/HeathCare.Api/bin/Debug/net9.0/FluentValidation.dll
+/Users/ingcampoverde/RiderProjects/api-creditos-medicos/HeathCare.Api/bin/Debug/net9.0/FluentValidation.AspNetCore.dll
+/Users/ingcampoverde/RiderProjects/api-creditos-medicos/HeathCare.Api/bin/Debug/net9.0/FluentValidation.DependencyInjectionExtensions.dll
+/Users/ingcampoverde/RiderProjects/api-creditos-medicos/HeathCare.Api/bin/Debug/net9.0/Microsoft.AspNetCore.Authentication.JwtBearer.dll
+/Users/ingcampoverde/RiderProjects/api-creditos-medicos/HeathCare.Api/bin/Debug/net9.0/Microsoft.IdentityModel.Protocols.dll
+/Users/ingcampoverde/RiderProjects/api-creditos-medicos/HeathCare.Api/bin/Debug/net9.0/Microsoft.IdentityModel.Protocols.OpenIdConnect.dll
