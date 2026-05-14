@@ -26,6 +26,7 @@ public static class ConfigurationConstants
     public const string SMTP_USER = "SMTP:User";
     public const string SMTP_PASSWORD = "SMTP:Password";
     public const string SMTP_FROM = "SMTP:From";
+    public const string SMTP_ENABLE_SSL = "SMTP:EnableSsl";
 
     // App
     public const string VERSION = "Version";

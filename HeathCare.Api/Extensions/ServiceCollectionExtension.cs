@@ -1,11 +1,13 @@
 using System.Text;
 using FluentValidation;
 using FluentValidation.AspNetCore;
+using HealthCare.Application.Common.Interfaces;
 using HealthCare.Application.Modules.Auth.Security.Interfaces;
 using HealthCare.Application.Modules.Auth.Services;
 using HealthCare.Application.Modules.Auth.Validators;
 using HealthCare.Application.Modules.Users.Commands.CreateUser;
 using HealthCare.Domain.Modules.Users;
+using HealthCare.Infrastructure.Email;
 using HealthCare.Infrastructure.Persistence.Context;
 using HealthCare.Infrastructure.Repositories;
 using HealthCare.Infrastructure.Security;
@@ -26,6 +28,7 @@ public static class ServiceCollectionExtension
     {
         services.AddDatabase(configuration);
         services.AddSecurity(configuration);
+        services.AddEmail(configuration);
         services.AddCorsPolicy(configuration);
         services.AddRepositories();
         services.AddApplicationServices();
@@ -112,6 +115,36 @@ public static class ServiceCollectionExtension
             });
 
         services.AddAuthorization();
+    }
+
+    private static void AddEmail(this IServiceCollection services, IConfiguration configuration)
+    {
+        services.Configure<SmtpSettings>(options =>
+        {
+            options.Host = configuration[ConfigurationConstants.SMTP_HOST]
+                ?? throw new InvalidOperationException(
+                    $"No se encontró la configuración: {ConfigurationConstants.SMTP_HOST}");
+
+            options.User = configuration[ConfigurationConstants.SMTP_USER]
+                ?? throw new InvalidOperationException(
+                    $"No se encontró la configuración: {ConfigurationConstants.SMTP_USER}");
+
+            options.Password = configuration[ConfigurationConstants.SMTP_PASSWORD]
+                ?? throw new InvalidOperationException(
+                    $"No se encontró la configuración: {ConfigurationConstants.SMTP_PASSWORD}");
+
+            options.From = configuration[ConfigurationConstants.SMTP_FROM]
+                ?? throw new InvalidOperationException(
+                    $"No se encontró la configuración: {ConfigurationConstants.SMTP_FROM}");
+
+            options.Port = int.TryParse(
+                configuration[ConfigurationConstants.SMTP_PORT], out var port) ? port : 587;
+
+            options.EnableSsl = !bool.TryParse(
+                configuration[ConfigurationConstants.SMTP_ENABLE_SSL], out var ssl) || ssl;
+        });
+
+        services.AddScoped<IEmailService, EmailService>();
     }
 
     private static void AddRepositories(this IServiceCollection services)
