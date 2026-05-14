@@ -7,33 +7,57 @@ public class Role
     public string? Description { get; private set; }
     public bool IsActive { get; private set; }
 
-    protected Role() { } 
+    public DateTime CreatedAt { get; private set; }
+    public int? CreatedBy { get; private set; }
+    public DateTime? UpdatedAt { get; private set; }
+    public int? UpdatedBy { get; private set; }
 
-    public Role(string name, string? description)
+    protected Role() { }
+
+    public Role(string name, string? description, int? createdBy)
     {
         Name = name;
         Description = description;
         IsActive = true;
+        CreatedAt = DateTime.UtcNow;
+        CreatedBy = createdBy;
     }
 
-    public void UpdateDetails(string name, string? description)
+    public void UpdateDetails(string name, string? description, int? updatedBy)
     {
         Name = name;
         Description = description;
+        UpdatedAt = DateTime.UtcNow;
+        UpdatedBy = updatedBy;
     }
 
-    public void ToggleActiveStatus(bool status)
+    public void Activate(int? updatedBy)
     {
-        IsActive = status;
+        IsActive = true;
+        UpdatedAt = DateTime.UtcNow;
+        UpdatedBy = updatedBy;
     }
 
-    internal static Role Reconstitute(int id, string name, string? description, bool isActive)
+    public void Deactivate(int? updatedBy)
+    {
+        IsActive = false;
+        UpdatedAt = DateTime.UtcNow;
+        UpdatedBy = updatedBy;
+    }
+
+    internal static Role Reconstitute(
+        int id, string name, string? description, bool isActive,
+        DateTime createdAt, int? createdBy, DateTime? updatedAt, int? updatedBy)
     {
         var role = new Role();
         role.Id = id;
         role.Name = name;
         role.Description = description;
         role.IsActive = isActive;
+        role.CreatedAt = createdAt;
+        role.CreatedBy = createdBy;
+        role.UpdatedAt = updatedAt;
+        role.UpdatedBy = updatedBy;
         return role;
     }
 }

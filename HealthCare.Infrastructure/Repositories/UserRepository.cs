@@ -157,7 +157,11 @@ public class UserRepository(HeathCareDbContext context) : IUserRepository
                         id: userRole.Role.Roleid,
                         name: userRole.Role.Name,
                         description: userRole.Role.Description,
-                        isActive: userRole.Role.Isactive
+                        isActive: userRole.Role.Isactive,
+                        createdAt: userRole.Role.Createdat,
+                        createdBy: userRole.Role.Createdby,
+                        updatedAt: userRole.Role.Updatedat,
+                        updatedBy: userRole.Role.Updatedby
                     );
                     domainUser.AddRole(domainRole);
                 }
