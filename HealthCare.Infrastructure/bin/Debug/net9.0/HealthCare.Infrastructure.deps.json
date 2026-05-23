@@ -58,26 +58,6 @@
           }
         }
       },
-      "MediatR/12.4.1": {
-        "dependencies": {
-          "MediatR.Contracts": "2.0.1",
-          "Microsoft.Extensions.DependencyInjection.Abstractions": "10.0.7"
-        },
-        "runtime": {
-          "lib/net6.0/MediatR.dll": {
-            "assemblyVersion": "12.0.0.0",
-            "fileVersion": "12.4.1.0"
-          }
-        }
-      },
-      "MediatR.Contracts/2.0.1": {
-        "runtime": {
-          "lib/netstandard2.0/MediatR.Contracts.dll": {
-            "assemblyVersion": "2.0.1.0",
-            "fileVersion": "2.0.1.0"
-          }
-        }
-      },
       "Microsoft.Bcl.AsyncInterfaces/7.0.0": {
         "runtime": {
           "lib/netstandard2.1/Microsoft.Bcl.AsyncInterfaces.dll": {
@@ -748,7 +728,6 @@
           "FluentValidation": "11.11.0",
           "HealthCare.Domain": "1.0.0",
           "HealthCare.Shared": "1.0.0",
-          "MediatR": "12.4.1",
           "Microsoft.Extensions.Logging.Abstractions": "9.0.4"
         },
         "runtime": {
@@ -768,8 +747,7 @@
       },
       "HealthCare.Shared/1.0.0": {
         "dependencies": {
-          "FluentValidation": "11.11.0",
-          "MediatR": "12.4.1"
+          "FluentValidation": "11.11.0"
         },
         "runtime": {
           "HealthCare.Shared.dll": {
@@ -813,20 +791,6 @@
       "sha512": "sha512-trJ82DOpAmo8i1jO1vNE+dGn4mPRyeYfy4swRcAGgMJhPoI1Kohf4OFJJf0+YIj4iUxgxPn8W+ht7e7KiYzSjg==",
       "path": "mailkit/4.16.0",
       "hashPath": "mailkit.4.16.0.nupkg.sha512"
-    },
-    "MediatR/12.4.1": {
-      "type": "package",
-      "serviceable": true,
-      "sha512": "sha512-0tLxCgEC5+r1OCuumR3sWyiVa+BMv3AgiU4+pz8xqTc+2q1WbUEXFOr7Orm96oZ9r9FsldgUtWvB2o7b9jDOaw==",
-      "path": "mediatr/12.4.1",
-      "hashPath": "mediatr.12.4.1.nupkg.sha512"
-    },
-    "MediatR.Contracts/2.0.1": {
-      "type": "package",
-      "serviceable": true,
-      "sha512": "sha512-FYv95bNT4UwcNA+G/J1oX5OpRiSUxteXaUt2BJbRSdRNiIUNbggJF69wy6mnk2wYToaanpdXZdCwVylt96MpwQ==",
-      "path": "mediatr.contracts/2.0.1",
-      "hashPath": "mediatr.contracts.2.0.1.nupkg.sha512"
     },
     "Microsoft.Bcl.AsyncInterfaces/7.0.0": {
       "type": "package",

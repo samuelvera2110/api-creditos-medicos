@@ -1,13 +1,10 @@
 {
   "version": 2,
-  "dgSpecHash": "ZfyxtZ7D5fA=",
+  "dgSpecHash": "skyYqhm6RpM=",
   "success": true,
   "projectFilePath": "/Users/ingcampoverde/RiderProjects/api-creditos-medicos/HealthCare.Shared/HealthCare.Shared.csproj",
   "expectedPackageFiles": [
-    "/Users/ingcampoverde/.nuget/packages/fluentvalidation/11.11.0/fluentvalidation.11.11.0.nupkg.sha512",
-    "/Users/ingcampoverde/.nuget/packages/mediatr/12.4.1/mediatr.12.4.1.nupkg.sha512",
-    "/Users/ingcampoverde/.nuget/packages/mediatr.contracts/2.0.1/mediatr.contracts.2.0.1.nupkg.sha512",
-    "/Users/ingcampoverde/.nuget/packages/microsoft.extensions.dependencyinjection.abstractions/8.0.0/microsoft.extensions.dependencyinjection.abstractions.8.0.0.nupkg.sha512"
+    "/Users/ingcampoverde/.nuget/packages/fluentvalidation/11.11.0/fluentvalidation.11.11.0.nupkg.sha512"
   ],
   "logs": []
 }
