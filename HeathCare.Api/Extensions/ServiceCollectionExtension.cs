@@ -5,20 +5,16 @@ using HealthCare.Application.Common.Interfaces;
 using HealthCare.Application.Modules.Auth.Security.Interfaces;
 using HealthCare.Application.Modules.Auth.Services;
 using HealthCare.Application.Modules.Auth.Validators;
-using HealthCare.Application.Modules.Users.Commands.CreateUser;
-using HealthCare.Domain.Modules.Users;
 using HealthCare.Infrastructure.Email;
 using HealthCare.Infrastructure.Persistence.Context;
 using HealthCare.Infrastructure.Repositories;
 using HealthCare.Infrastructure.Security;
-using HealthCare.Shared.Behaviours;
 using HealthCare.Shared.Constants;
 using HealthCare.Shared.Wrappers;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
-using MediatR;
-using Microsoft.AspNetCore.Mvc;
 
 namespace HeathCare.Api.Extensions;
 
@@ -32,14 +28,13 @@ public static class ServiceCollectionExtension
         services.AddCorsPolicy(configuration);
         services.AddRepositories();
         services.AddApplicationServices();
-        services.AddMediatR();
         services.AddScalar();
         services.AddControllers();
         services.AddFluentValidationAutoValidation();
         services.AddValidatorsFromAssemblyContaining<LoginRequestValidator>();
         services.ConfigureApiBehavior();
     }
-    
+
     private static void ConfigureApiBehavior(this IServiceCollection services)
     {
         services.Configure<ApiBehaviorOptions>(options =>
@@ -52,26 +47,10 @@ public static class ServiceCollectionExtension
                     .Select(e => e.ErrorMessage)
                     .ToList();
 
-                var response = ApiResponse<object>.Error(
-                    "Errores de validación.",
-                    errors
-                );
-
-                return new BadRequestObjectResult(response);
+                return new BadRequestObjectResult(
+                    ApiResponse<object>.Error("Errores de validación.", errors));
             };
         });
-    }
-
-    private static void AddMediatR(this IServiceCollection services)
-    {
-        services.AddMediatR(cfg =>
-        {
-            cfg.RegisterServicesFromAssemblyContaining<CreateUserCommandHandler>();
-        });
-
-        services.AddTransient(
-            typeof(IPipelineBehavior<,>),
-            typeof(ValidationBehavior<,>));
     }
 
     public static void AddDatabase(this IServiceCollection services, IConfiguration configuration)
@@ -105,12 +84,12 @@ public static class ServiceCollectionExtension
                     ValidateIssuerSigningKey = true,
                     IssuerSigningKey         = new SymmetricSecurityKey(
                                                 Encoding.UTF8.GetBytes(jwtSettings.PrivateKey)),
-                    ValidateIssuer    = true,
-                    ValidIssuer       = jwtSettings.Issuer,
-                    ValidateAudience  = true,
-                    ValidAudience     = jwtSettings.Audience,
-                    ValidateLifetime  = true,
-                    ClockSkew         = TimeSpan.Zero
+                    ValidateIssuer   = true,
+                    ValidIssuer      = jwtSettings.Issuer,
+                    ValidateAudience = true,
+                    ValidAudience    = jwtSettings.Audience,
+                    ValidateLifetime = true,
+                    ClockSkew        = TimeSpan.Zero
                 };
             });
 
@@ -150,31 +129,25 @@ public static class ServiceCollectionExtension
     private static void AddRepositories(this IServiceCollection services)
     {
         services.Scan(scan => scan
-            .FromAssemblyOf<UserRepository>()        
-                .AddClasses(classes => classes
-                    .InNamespaces("HealthCare.Infrastructure.Repositories"))
-                .AsImplementedInterfaces()         
-                .WithScopedLifetime()           
-        );
+            .FromAssemblyOf<UserRepository>()
+            .AddClasses(classes => classes
+                .InNamespaces("HealthCare.Infrastructure.Repositories"))
+            .AsImplementedInterfaces()
+            .WithScopedLifetime());
     }
 
     private static void AddApplicationServices(this IServiceCollection services)
     {
         services.Scan(scan => scan
-            .FromAssemblyOf<AuthService>()             
-            
-                .AddClasses(classes => classes
-                    .InNamespaces("HealthCare.Application.Modules")
-                    .Where(t => t.Name.EndsWith("Service")))
-                .AsImplementedInterfaces()             
-                .WithScopedLifetime()
-        );
+            .FromAssemblyOf<AuthService>()
+            .AddClasses(classes => classes
+                .Where(t => t.Name.EndsWith("Service")))
+            .AsImplementedInterfaces()
+            .WithScopedLifetime());
 
-       
         services.AddScoped<IPasswordHasher, PasswordHasher>();
     }
 
-    
     private static void AddCorsPolicy(this IServiceCollection services, IConfiguration configuration)
     {
         var allowedOrigins = configuration
